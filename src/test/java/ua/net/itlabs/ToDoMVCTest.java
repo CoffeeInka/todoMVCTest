@@ -13,14 +13,12 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.open;
 
-/**
- * Created by inna on 1/15/17.
- */
 
 public class ToDoMVCTest {
 
     @Test
     public void tasksCommonFlow(){
+
 
         open("https://todomvc4tasj.herokuapp.com/");
         $("#new-todo").setValue("create task1").pressEnter();
@@ -37,7 +35,6 @@ public class ToDoMVCTest {
         $$("#todo-list .completed").shouldHave(texts("create task4"));
 
         $("#clear-completed").click();
-        //$$("#todo-list .completed").shouldBe(empty);
         $$("todo-list li").filterBy(cssClass("completed")).shouldBe(empty);
 
         $("#toggle-all").click();
@@ -45,10 +42,6 @@ public class ToDoMVCTest {
 
         $("#clear-completed").click();
         $$("#todo-list li").shouldBe(empty);
-
-
-
-
 
 
     }
