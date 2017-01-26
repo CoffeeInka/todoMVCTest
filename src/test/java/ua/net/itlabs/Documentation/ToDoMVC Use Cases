@@ -1,0 +1,48 @@
+
+Use Cases
+
+at all filters:
+- create +
+- edit +
+- delete  +
+- complete +
+- reopen
+- complete all
+- reopen all(P2)
+- clear completed
+
+at active filter:
+ - create
+ - edit
+ - delete
+ - complete
+ - complete all +
+ - clear completed +
+
+at completed filter:
+- delete
+- reopen +
+- clear completed
+- reopen all (P2)
+
+general:
+- “items left” counting +
+
+switching between filters:
+- from All to
+    Active
+    Completed +
+- from Active to
+    All
+    Completed
+- from Completed
+    Active +
+    All
+
+additional edit operations:
+- cancel edit by press Esc +
+- delete by emptying text (P2)
+- confirm edit by press Tab (P2)
+- confirm edit by click out of the field (P2)
+
+
