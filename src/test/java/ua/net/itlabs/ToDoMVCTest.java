@@ -30,9 +30,9 @@ public class ToDoMVCTest {
 
         toggleAll();
         clearCompleted();
-        tasks.shouldBe(empty);
-
+        assertTasksAreEmpty();
     }
+
 
     ElementsCollection tasks = $$("#todo-list li");
 
@@ -48,19 +48,22 @@ public class ToDoMVCTest {
         $("#toggle-all").click();
     }
 
-    private void add(String... taskText) {
-        for (String text : taskText) {
+    private void add(String... taskTexts) {
+        for (String text : taskTexts) {
             $("#new-todo").setValue(text).pressEnter();
         }
-
     }
 
     private void toggle(String taskText) {
         tasks.findBy(exactText(taskText)).$(".toggle").click();
     }
 
-    private void assertTasksAre(String... taskText) {
-        tasks.shouldHave(exactTexts(taskText));
+    private void assertTasksAre(String... taskTexts) {
+        tasks.shouldHave(exactTexts(taskTexts));
+    }
+
+    private void assertTasksAreEmpty() {
+        tasks.shouldBe(empty);
     }
 
 }
