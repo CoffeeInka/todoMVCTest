@@ -1,4 +1,4 @@
-package ua.net.itlabs;
+package ua.net.itlabs.hw1;
 
 import com.codeborne.selenide.ElementsCollection;
 import org.junit.Test;

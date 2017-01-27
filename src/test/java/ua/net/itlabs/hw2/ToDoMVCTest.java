@@ -1,4 +1,4 @@
-package ua.net.itlabs;
+package ua.net.itlabs.hw2;
 
 import com.codeborne.selenide.ElementsCollection;
 import org.junit.Test;
@@ -9,7 +9,7 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.open;
 
-public class ToDoMVCSmokeTest {
+public class ToDoMVCTest {
 
     @Test
     public void e2eSmokeTest() {
