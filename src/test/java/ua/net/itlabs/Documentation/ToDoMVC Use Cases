@@ -3,8 +3,9 @@ Use Cases
 
 at all filters:
 - create +
-- edit +
-- delete  +
+- cancel rename +
+- edit
+- delete +
 - complete +
 - reopen
 - complete all
@@ -13,16 +14,17 @@ at all filters:
 
 at active filter:
  - create
+ - rename +
  - edit
  - delete
  - complete
  - complete all +
- - clear completed +
+ - clear completed
 
 at completed filter:
 - delete
 - reopen +
-- clear completed
+- clear completed +
 - reopen all (P2)
 
 general:
@@ -30,14 +32,14 @@ general:
 
 switching between filters:
 - from All to
-    Active
-    Completed +
+    Active +
+    Completed
 - from Active to
     All
-    Completed
+    Completed +
 - from Completed
-    Active +
-    All
+    Active
+    All +
 
 additional edit operations:
 - cancel edit by press Esc +
