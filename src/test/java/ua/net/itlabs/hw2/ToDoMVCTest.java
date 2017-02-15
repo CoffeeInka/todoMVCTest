@@ -17,36 +17,34 @@ public class ToDoMVCTest {
 
         open("https://todomvc4tasj.herokuapp.com/");
 
-        add("1", "2");
-        cancelRename("1", "1 edit canceled");
+        add("1");
+        cancelEdit("1", "1 edit canceled");
         toggle("1");
-        assertTasksAre("1", "2");
+        assertTasks("1");
 
-        switchFilterToActive();
-        assertTasksAre("", "2");
-        assertVisibleTasksAre("2");
+        filterActive();
+        assertNoTasks();
 
-        applyRename("2", "2 edited");
+        add("2");
+        edit("2", "2 edited");
+        assertTasks("2 edited");
+
         toggleAll();
-        assertTasksAre("", "");
-        assertVisibleTasksAre();
+        assertNoTasks();
 
-        switchFilterToCompleted();
-        assertVisibleTasksAre("1", "2 edited");
+        filterCompleted();
+        assertTasks("1", "2 edited");
 
         toggle("1");
-        assertTasksAre("", "2 edited");
-        assertVisibleTasksAre("2 edited");
+        assertTasks("2 edited");
 
         clearCompleted();
-        assertTasksAre("");
-        assertVisibleTasksAre();
-
         assertItemsLeft(1);
+        filterAll();
+        assertTasks("1");
 
-        switchFilterToAll();
         delete("1");
-        assertTasksAreEmpty();
+        assertNoTasks();
     }
 
 
@@ -54,8 +52,8 @@ public class ToDoMVCTest {
 
     ElementsCollection filters = $$("#filters li");
 
-    private void add(String... taskText) {
-        for (String text : taskText) {
+    private void add(String... tasksText) {
+        for (String text : tasksText) {
             $("#new-todo").setValue(text).pressEnter();
         }
     }
@@ -72,53 +70,45 @@ public class ToDoMVCTest {
         $("#toggle-all").click();
     }
 
-    private boolean assertItemsLeft(int count) {
-        $("#todo-count").equals(count);
-        return true;
+    private void assertItemsLeft(int count) {
+        $("#todo-count strong").shouldHave(text(Integer.toString(count)));
     }
 
     private void clearCompleted() {
         $("#clear-completed").click();
     }
 
-    private SelenideElement setNewTaskName(String oldTaskText, String newTaskText) {
+    private SelenideElement startEdit(String oldTaskText, String newTaskText) {
         tasks.findBy(exactText(oldTaskText)).doubleClick();
         return tasks.findBy(cssClass("editing")).find(".edit").setValue(newTaskText);
     }
 
-    private void applyRename(String oldTaskText, String newTaskText) {
-        setNewTaskName(oldTaskText, newTaskText).pressEnter();
+    private void edit(String oldTaskText, String newTaskText) {
+        startEdit(oldTaskText, newTaskText).pressEnter();
     }
 
-    private void cancelRename(String oldTaskText, String newTaskText) {
-        setNewTaskName(oldTaskText, newTaskText).pressEscape();
+    private void cancelEdit(String oldTaskText, String newTaskText) {
+        startEdit(oldTaskText, newTaskText).pressEscape();
     }
 
-    private void switchFilterToCompleted() {
+    private void filterCompleted() {
         filters.findBy(exactText("Completed")).click();
     }
 
-    private void switchFilterToActive() {
+    private void filterActive() {
         filters.findBy(exactText("Active")).click();
     }
 
-    private void switchFilterToAll() {
+    private void filterAll() {
         filters.findBy(exactText("All")).click();
     }
 
-    private void assertTasksAreEmpty() {
-        tasks.shouldBe(empty);
+    private void assertNoTasks() {
+        tasks.filterBy(visible).shouldBe(empty);
     }
 
-    private void assertTasksAre(String... taskTexts) {
-        tasks.shouldHave(texts(taskTexts));
-    }
-
-    private void assertVisibleTasksAre(String... taskText) {
-        for (String text : taskText) {
-            tasks.filterBy(visible).shouldHave(exactTexts(taskText));
-        }
-
+    private void assertTasks(String... tasksText) {
+        tasks.filterBy(visible).shouldHave(exactTexts(tasksText));
     }
 
 }
