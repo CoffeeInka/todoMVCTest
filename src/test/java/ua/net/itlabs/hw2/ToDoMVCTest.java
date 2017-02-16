@@ -39,7 +39,9 @@ public class ToDoMVCTest {
         assertTasks("2 edited");
 
         clearCompleted();
+        assertNoTasks();
         assertItemsLeft(1);
+
         filterAll();
         assertTasks("1");
 
@@ -52,8 +54,8 @@ public class ToDoMVCTest {
 
     ElementsCollection filters = $$("#filters li");
 
-    private void add(String... tasksText) {
-        for (String text : tasksText) {
+    private void add(String... tasksTexts) {
+        for (String text : tasksTexts) {
             $("#new-todo").setValue(text).pressEnter();
         }
     }
@@ -107,8 +109,8 @@ public class ToDoMVCTest {
         tasks.filterBy(visible).shouldBe(empty);
     }
 
-    private void assertTasks(String... tasksText) {
-        tasks.filterBy(visible).shouldHave(exactTexts(tasksText));
+    private void assertTasks(String... tasksTexts) {
+        tasks.filterBy(visible).shouldHave(exactTexts(tasksTexts));
     }
 
 }
