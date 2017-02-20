@@ -2,53 +2,89 @@ package ua.net.itlabs.hw2;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import static com.codeborne.selenide.CollectionCondition.empty;
 import static com.codeborne.selenide.CollectionCondition.exactTexts;
-import static com.codeborne.selenide.CollectionCondition.texts;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
 public class ToDoMVCTest {
 
+    @Before
+    public void openPage() {
+        open("https://todomvc4tasj.herokuapp.com/");
+    }
+
+    @After
+    public void clearData() {
+        executeJavaScript("localStorage.clear()");
+    }
+
     @Test
     public void tasksLifeCycle() {
-
-        open("https://todomvc4tasj.herokuapp.com/");
-
         add("1");
-        cancelEdit("1", "1 edit canceled");
         toggle("1");
         assertTasks("1");
 
         filterActive();
         assertNoTasks();
 
-        add("2");
-        edit("2", "2 edited");
-        assertTasks("2 edited");
-
-        toggleAll();
-        assertNoTasks();
-
         filterCompleted();
-        assertTasks("1", "2 edited");
+        assertTasks("1");
 
         toggle("1");
-        assertTasks("2 edited");
-
-        clearCompleted();
         assertNoTasks();
-        assertItemsLeft(1);
 
         filterAll();
         assertTasks("1");
 
+        toggleAll();
+        assertItemsLeft(0);
+        clearCompleted();
+        assertNoTasks();
+    }
+
+    @Test
+    public void cancelEdit() {
+        add("1");
+        cancelEdit("1", "1 edit canceled");
+        assertTasks("1");
+        assertItemsLeft(1);
+    }
+
+    @Test
+    public void editTask() {
+        add("1");
+        filterActive();
+        edit("1", "1 edited");
+        assertTasks("1 edited");
+        assertItemsLeft(1);
+    }
+
+    @Test
+    public void deleteTask() {
+        add("1");
+        assertItemsLeft(1);
         delete("1");
         assertNoTasks();
     }
 
+    @Test
+    public void reactivateAll() {
+        add("1");
+        filterActive();
+        add("2");
+        toggleAll();
+        assertItemsLeft(0);
+        filterCompleted();
+        assertTasks("1", "2");
+        toggleAll();
+        assertNoTasks();
+        assertItemsLeft(2);
+    }
 
     ElementsCollection tasks = $$("#todo-list li");
 
