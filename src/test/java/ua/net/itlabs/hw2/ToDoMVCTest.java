@@ -32,33 +32,45 @@ public class ToDoMVCTest {
         filterActive();
         assertNoTasks();
 
+        add("2");
+        assertTasks("2");
+        assertItemsLeft(1);
+
+        toggleAll();
+        assertNoTasks();
+
         filterCompleted();
-        assertTasks("1");
+        assertTasks("1", "2");
 
         toggle("1");
+        assertTasks("2");
+
+        clearCompleted();
         assertNoTasks();
 
         filterAll();
         assertTasks("1");
 
-        toggleAll();
-        assertItemsLeft(0);
-        clearCompleted();
-        assertNoTasks();
+
     }
 
     @Test
     public void cancelEdit() {
+        //given task "1" is created on All and task "2" is created on Active
         add("1");
-        cancelEdit("1", "1 edit canceled");
-        assertTasks("1");
-        assertItemsLeft(1);
+        filterActive();
+        add("2");
+
+        cancelEdit("2", "2 edit canceled");
+        assertTasks("1", "2");
+        assertItemsLeft(2);
     }
 
     @Test
     public void editTask() {
+        //given task "1" is created on All
         add("1");
-        filterActive();
+
         edit("1", "1 edited");
         assertTasks("1 edited");
         assertItemsLeft(1);
@@ -66,24 +78,12 @@ public class ToDoMVCTest {
 
     @Test
     public void deleteTask() {
-        add("1");
-        assertItemsLeft(1);
-        delete("1");
-        assertNoTasks();
-    }
+        //given tasks "1" and "2" are created on All
+        add("1", "2");
 
-    @Test
-    public void reactivateAll() {
-        add("1");
-        filterActive();
-        add("2");
-        toggleAll();
-        assertItemsLeft(0);
-        filterCompleted();
-        assertTasks("1", "2");
-        toggleAll();
-        assertNoTasks();
-        assertItemsLeft(2);
+        delete("1");
+        assertTasks("2");
+        assertItemsLeft(1);
     }
 
     ElementsCollection tasks = $$("#todo-list li");
