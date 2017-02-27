@@ -8,7 +8,8 @@ import ru.yandex.qatools.allure.annotations.Step;
 import static com.codeborne.selenide.CollectionCondition.empty;
 import static com.codeborne.selenide.CollectionCondition.exactTexts;
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 
 public class ToDoMVCTest extends AtTodoMVCPageWithClearedDataAfterEachTest {
 
@@ -44,11 +45,10 @@ public class ToDoMVCTest extends AtTodoMVCPageWithClearedDataAfterEachTest {
     }
 
     @Test
-    public void cancelEdit() {
-        //given task "1" is created on All and task "2" is created on Active
-        add("1");
+    public void cancelEditAtActive() {
+        //given
+        add("1", "2");
         filterActive();
-        add("2");
 
         cancelEdit("2", "2 edit canceled");
         assertTasks("1", "2");
@@ -56,8 +56,8 @@ public class ToDoMVCTest extends AtTodoMVCPageWithClearedDataAfterEachTest {
     }
 
     @Test
-    public void editTask() {
-        //given task "1" is created on All
+    public void editAtAll() {
+        //given
         add("1");
 
         edit("1", "1 edited");
@@ -66,8 +66,8 @@ public class ToDoMVCTest extends AtTodoMVCPageWithClearedDataAfterEachTest {
     }
 
     @Test
-    public void deleteTask() {
-        //given tasks "1" and "2" are created on All
+    public void deleteTaskAtAll() {
+        //given
         add("1", "2");
 
         delete("1");
