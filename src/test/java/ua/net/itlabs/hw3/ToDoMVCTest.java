@@ -47,43 +47,45 @@ public class ToDoMVCTest extends AtTodoMVCPageWithClearedDataAfterEachTest {
 
     }
 
-    public void givenAllActive(String a, String b){
-        executeJavaScript("localStorage.setItem(\"todos-troopjs\", '[{\"completed\":false,\"title\":\"" + a + "\"}, {\"completed\":false,\"title\":\"" + b + "\"}]')");
-        refresh();
-        filterActive();
-    }
+//    public void givenAtActive(){
+//        given();
+//        refresh();
+//        filterActive();
+//    }
+//
+//    public void givenAtCompleted(){
+//        given();
+//        refresh();
+//        filterCompleted();
+//    }
 
-    public void givenAllCompleted(String a, String b){
-        executeJavaScript("localStorage.setItem(\"todos-troopjs\", '[{\"completed\":false,\"title\":\"" + a + "\"}, {\"completed\":false,\"title\":\"" + b + "\"}]')");
-        refresh();
-        filterCompleted();
-    }
 
+    public void given(boolean status, String... taskTexts){
 
-    public void given(boolean status, String... newTasks){
-
-        StringBuilder tasksArray = new StringBuilder();
-        for (String task: newTasks) {
-             tasksArray.append(String.format("{\"completed\":" + status + "\"title\":\"%s\"}", task));
-             tasksArray.append(",");
+        StringBuilder taskBuilder = new StringBuilder();
+        for (int i = 0; i < taskTexts.length; i++) {
+            taskBuilder.append(String.format("{\"completed\":%s,\"title\":\"%s\"}", status, taskTexts[i]));
+            if (i < (taskTexts.length - 1)) {
+                taskBuilder.append(",");
+            }
         }
 
-        executeJavaScript("localStorage.setItem(\"todos-troopjs\", '[" + tasksArray + "]')");
+        executeJavaScript("localStorage.setItem(\"todos-troopjs\", '[" + taskBuilder + "]')");
         refresh();
     }
 
     @Test
     public void testGiven(){
-        given(true, "a", "b", "c", "d", "e", "f");
+        given(false, "a", "b", "c", "d", "e", "f");
 
         add("G");
         assertTasks("a", "b", "c", "d", "e", "f", "G");
-        assertItemsLeft(6);
+        assertItemsLeft(7);
     }
 
     @Test
     public void cancelEditAtActive() {
-        givenAllActive("1", "2");
+        //givenAllActive("1", "2");
 
         cancelEdit("2", "2 edit canceled");
         assertTasks("1", "2");
@@ -191,5 +193,6 @@ public class ToDoMVCTest extends AtTodoMVCPageWithClearedDataAfterEachTest {
     }
 
 }
+
 
 
