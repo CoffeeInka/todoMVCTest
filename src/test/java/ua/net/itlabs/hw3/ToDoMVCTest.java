@@ -49,38 +49,65 @@ public class ToDoMVCTest extends AtTodoMVCPageWithClearedDataAfterEachTest {
 
 //    public void givenAtActive(){
 //        given();
-//        refresh();
 //        filterActive();
 //    }
 //
 //    public void givenAtCompleted(){
 //        given();
-//        refresh();
 //        filterCompleted();
 //    }
 
+    public enum taskStatus {
+        ACTIVE("false"),
+        COMPLETED("true");
 
-    public void given(boolean status, String... taskTexts){
+        public String status;
 
+        taskStatus(String status) {
+            this.status = status;
+        }
+
+        @Override
+        public String toString() {
+            return status;
+        }
+    }
+
+    public static class Task {
+
+        static taskStatus status;
+        static String taskText;
+
+        Task(taskStatus status, String taskText) {
+            this.status = status;
+            this.taskText = taskText;
+        }
+
+    }
+
+    public void given(Task... tasks){
         StringBuilder taskBuilder = new StringBuilder();
-        for (int i = 0; i < taskTexts.length; i++) {
-            taskBuilder.append(String.format("{\"completed\":%s,\"title\":\"%s\"}", status, taskTexts[i]));
-            if (i < (taskTexts.length - 1)) {
+
+        for (int i = 0; i < tasks.length; i++) {
+            taskBuilder.append(String.format("{\"completed\":%s,\"title\":\"%s\"}", Task.status, Task.taskText));
+            if (i < (tasks.length - 1)) {
                 taskBuilder.append(",");
             }
         }
 
-        executeJavaScript("localStorage.setItem(\"todos-troopjs\", '[" + taskBuilder + "]')");
+        String jsCommand = "localStorage.setItem(\"todos-troopjs\", '[" + taskBuilder + "]')";
+        System.out.println(jsCommand);
+        executeJavaScript(jsCommand);
         refresh();
     }
 
     @Test
     public void testGiven(){
-        given(false, "a", "b", "c", "d", "e", "f");
+        given(new Task(taskStatus.COMPLETED, "a"), new Task(taskStatus.ACTIVE, "b"));
 
-        add("G");
-        assertTasks("a", "b", "c", "d", "e", "f", "G");
-        assertItemsLeft(7);
+        add("c");
+        assertTasks("a", "b", "c");
+        assertItemsLeft(2);
     }
 
     @Test
@@ -115,9 +142,6 @@ public class ToDoMVCTest extends AtTodoMVCPageWithClearedDataAfterEachTest {
     ElementsCollection tasks = $$("#todo-list li");
 
     ElementsCollection filters = $$("#filters li");
-
-    final boolean ACTIVE = false;
-    final boolean COMPLETED = true;
 
     @Step
     private void add(String... tasksTexts) {
