@@ -6,9 +6,6 @@ import org.junit.Test;
 import ru.yandex.qatools.allure.annotations.Step;
 import ua.net.itlabs.hw2.AtTodoMVCPageWithClearedDataAfterEachTest;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static com.codeborne.selenide.CollectionCondition.empty;
 import static com.codeborne.selenide.CollectionCondition.exactTexts;
 import static com.codeborne.selenide.Condition.*;
@@ -57,13 +54,13 @@ public class ToDoMVCTest extends AtTodoMVCPageWithClearedDataAfterEachTest {
 //        filterCompleted();
 //    }
 
-    public enum taskStatus {
+    public enum TaskStatus {
         ACTIVE("false"),
         COMPLETED("true");
 
         public String status;
 
-        taskStatus(String status) {
+        TaskStatus(String status) {
             this.status = status;
         }
 
@@ -75,10 +72,10 @@ public class ToDoMVCTest extends AtTodoMVCPageWithClearedDataAfterEachTest {
 
     public static class Task {
 
-        static taskStatus status;
-        static String taskText;
+        TaskStatus status;
+        String taskText;
 
-        Task(taskStatus status, String taskText) {
+        Task(TaskStatus status, String taskText) {
             this.status = status;
             this.taskText = taskText;
         }
@@ -89,7 +86,7 @@ public class ToDoMVCTest extends AtTodoMVCPageWithClearedDataAfterEachTest {
         StringBuilder taskBuilder = new StringBuilder();
 
         for (int i = 0; i < tasks.length; i++) {
-            taskBuilder.append(String.format("{\"completed\":%s,\"title\":\"%s\"}", Task.status, Task.taskText));
+            taskBuilder.append(String.format("{\"completed\":%s,\"title\":\"%s\"}", tasks[i].status, tasks[i].taskText));
             if (i < (tasks.length - 1)) {
                 taskBuilder.append(",");
             }
@@ -103,7 +100,7 @@ public class ToDoMVCTest extends AtTodoMVCPageWithClearedDataAfterEachTest {
 
     @Test
     public void testGiven(){
-        given(new Task(taskStatus.COMPLETED, "a"), new Task(taskStatus.ACTIVE, "b"));
+        given(new Task(TaskStatus.COMPLETED, "a"), new Task(TaskStatus.ACTIVE, "b"));
 
         add("c");
         assertTasks("a", "b", "c");
