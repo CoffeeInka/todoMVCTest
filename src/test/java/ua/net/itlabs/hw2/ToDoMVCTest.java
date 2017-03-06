@@ -11,7 +11,7 @@ import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.$$;
 
-public class ToDoMVCTest extends AtTodoMVCPageWithClearedDataAfterEachTest {
+public class ToDoMVCTest extends BaseTest {
 
     @Test
     public void tasksLifeCycle() {
@@ -74,6 +74,8 @@ public class ToDoMVCTest extends AtTodoMVCPageWithClearedDataAfterEachTest {
         assertTasks("2");
         assertItemsLeft(1);
     }
+
+
 
     ElementsCollection tasks = $$("#todo-list li");
 
