@@ -1,11 +1,13 @@
 package ua.net.itlabs.hw3;
 
 import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import ru.yandex.qatools.allure.annotations.Step;
+import sun.jvm.hotspot.debugger.Page;
 import ua.net.itlabs.hw2.AtTodoMVCPageWithClearedDataAfterEachTest;
 
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ import static com.codeborne.selenide.CollectionCondition.empty;
 import static com.codeborne.selenide.CollectionCondition.exactTexts;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.WebDriverRunner.url;
 import static ua.net.itlabs.hw3.ToDoMVCTest.TaskStatus.*;
 
 public class ToDoMVCTest extends AtTodoMVCPageWithClearedDataAfterEachTest {
@@ -47,33 +50,11 @@ public class ToDoMVCTest extends AtTodoMVCPageWithClearedDataAfterEachTest {
         filterAll();
         assertTasks("1");
 
-
     }
 
-//    public void givenAtActive(){
-//        given();
-//        filterActive();
-//    }
-//
-//    public void givenAtCompleted(){
-//        given();
-//        filterCompleted();
-//    }
-
-    public enum TaskStatus {
-        ACTIVE("false"),
-        COMPLETED("true");
-
-        public String status;
-
-        TaskStatus(String status) {
-            this.status = status;
-        }
-
-        @Override
-        public String toString() {
-            return status;
-        }
+    public void ensureUrl() {
+        if (!url().equals("https://todomvc4tasj.herokuapp.com/")) ;
+        open("https://todomvc4tasj.herokuapp.com/");
     }
 
     public class Task {
@@ -97,6 +78,33 @@ public class ToDoMVCTest extends AtTodoMVCPageWithClearedDataAfterEachTest {
         return aTask;
     }
 
+    public enum TaskStatus {
+        ACTIVE("false"),
+        COMPLETED("true");
+
+        public String status;
+
+        TaskStatus(String status) {
+            this.status = status;
+        }
+
+        @Override
+        public String toString() {
+            return status;
+        }
+    }
+
+    public Task[] tasksWithStatus(final TaskStatus status, String... taskTexts) {
+//        ArrayList<Task> tasks = new ArrayList<Task>();
+//        for (String taskText : taskTexts) {
+//            tasks.add(aTask(status, taskText));}
+//        return tasks.toArray(new Task[tasks.size()]);
+
+        return Arrays.stream(taskTexts).map(taskText ->
+                aTask(status, taskText)).
+                toArray(size -> new Task[size]);
+    }
+
     public void given(Task... tasks) {
 
         String jsCommand = "localStorage.setItem(\"todos-troopjs\", '[" + StringUtils.join(tasks, ",") + "]')";
@@ -110,40 +118,29 @@ public class ToDoMVCTest extends AtTodoMVCPageWithClearedDataAfterEachTest {
         given(tasksWithStatus(status, taskTexts));
     }
 
-    public Task[] tasksWithStatus(final TaskStatus status, String... taskTexts) {
-//        ArrayList<Task> tasks = new ArrayList<Task>();
-//        for (String taskText : taskTexts) {
-//            tasks.add(aTask(status, taskText));
-//        }
-//        return tasks.toArray(new Task[tasks.size()]);
-
-        return Arrays.stream(taskTexts).map(taskText ->
-                aTask(status, taskText)).
-                toArray(size -> new Task[size]);
+    public void givenAtActive(Task... tasks) {
+        given();
+        filterActive();
     }
 
-    @Test
-    public void testGivenSameStatus() {
-        given(tasksWithStatus(COMPLETED, "a", "b"));
-
-        add("c");
-        assertTasks("a", "b", "c");
-        assertItemsLeft(1);
+    public void givenAtActive(TaskStatus status, String... taskTexts) {
+        given(tasksWithStatus(status, taskTexts));
+        filterActive();
     }
 
-    @Test
-    public void testGivenDiffStatus() {
-        given(aTask(COMPLETED, "a"), aTask(ACTIVE, "b"));
+    public void givenAtCompleted(Task... tasks) {
+        given();
+        filterCompleted();
+    }
 
-        add("c");
-        assertTasks("a", "b", "c");
-        assertItemsLeft(2);
+    public void givenAtCompleted(TaskStatus status, String... taskTexts) {
+        given(tasksWithStatus(status, taskTexts));
+        filterCompleted();
     }
 
     @Test
     public void cancelEditAtActive() {
-        given(tasksWithStatus(ACTIVE, "1", "2"));
-        filterActive();
+        givenAtActive(ACTIVE, "1", "2");
 
         cancelEdit("2", "2 edit canceled");
         assertTasks("1", "2");
