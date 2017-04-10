@@ -1,4 +1,4 @@
-package ua.net.itlabs.hw4.pages;
+package ua.net.itlabs.hw4.pageobjectes.pages;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
