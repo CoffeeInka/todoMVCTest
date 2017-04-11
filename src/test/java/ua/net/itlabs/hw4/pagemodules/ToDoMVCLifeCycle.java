@@ -4,7 +4,7 @@ package ua.net.itlabs.hw4.pagemodules;
 import org.junit.Test;
 import ua.net.itlabs.hw2.BaseTest;
 
-import static ua.net.itlabs.hw4.pagemodules.pages.ToDoMVCPage.*;
+import static ua.net.itlabs.hw4.pagemodules.pages.ToDoMVC.*;
 
 public class ToDoMVCLifeCycle extends BaseTest {
     

@@ -1,18 +1,18 @@
-package ua.net.itlabs.hw4.pageobjectes;
+package ua.net.itlabs.hw4.pageobjects;
 
 import org.junit.Test;
 import ua.net.itlabs.hw2.BaseTest;
-import ua.net.itlabs.hw4.pageobjectes.pages.ToDoMVCPage;
+import ua.net.itlabs.hw4.pageobjects.pages.ToDoMVCPage;
 
 /**
  * Created by inna on 4/5/17.
  */
-public class AtAll extends BaseTest {
+public class ToDoMVCAtAllFilterTest extends BaseTest {
 
     ToDoMVCPage page = new ToDoMVCPage();
 
     @Test
-    public void completeAllAtAll() {
+    public void completeAll() {
         page.given(page.aTask(ToDoMVCPage.TaskStatus.ACTIVE, "1"), page.aTask(ToDoMVCPage.TaskStatus.COMPLETED, "2"));
 
         page.toggleAll();
@@ -21,7 +21,7 @@ public class AtAll extends BaseTest {
     }
 
     @Test
-    public void clearCompletedAtAll() {
+    public void clearCompleted() {
         page.given(ToDoMVCPage.TaskStatus.COMPLETED, "1");
 
         page.clearCompleted();
@@ -29,7 +29,7 @@ public class AtAll extends BaseTest {
     }
 
     @Test
-    public void reactivateAtAll() {
+    public void reactivate() {
         page.given(page.aTask(ToDoMVCPage.TaskStatus.ACTIVE, "1"), page.aTask(ToDoMVCPage.TaskStatus.COMPLETED, "2"));
 
         page.toggle("2");
@@ -38,7 +38,7 @@ public class AtAll extends BaseTest {
     }
 
     @Test
-    public void editAtAll() {
+    public void edit() {
         page.given(ToDoMVCPage.TaskStatus.ACTIVE, "1");
 
         page.edit("1", "1 edited");
@@ -47,7 +47,7 @@ public class AtAll extends BaseTest {
     }
 
     @Test
-    public void deleteAtAll() {
+    public void delete() {
         page.given(page.aTask(ToDoMVCPage.TaskStatus.COMPLETED, "1"), page.aTask(ToDoMVCPage.TaskStatus.ACTIVE, "2"));
 
         page.delete("1");
@@ -56,7 +56,7 @@ public class AtAll extends BaseTest {
     }
 
     @Test
-    public void cancelEditAtAll() {
+    public void cancelEdit() {
         page.given(page.aTask(ToDoMVCPage.TaskStatus.ACTIVE, "1"), page.aTask(ToDoMVCPage.TaskStatus.COMPLETED, "2"));
 
         page.cancelEdit("2", "2 edit canceled");
@@ -65,7 +65,7 @@ public class AtAll extends BaseTest {
     }
 
     @Test
-    public void editByTabAtAll() {
+    public void editByTab() {
         page.given(ToDoMVCPage.TaskStatus.COMPLETED, "1");
 
         page.editByTab("1", "1 edited");
@@ -75,7 +75,7 @@ public class AtAll extends BaseTest {
 
 
     @Test
-    public void switchFilterAllToCompleted() {
+    public void switchFilterToCompleted() {
         page.given(page.aTask(ToDoMVCPage.TaskStatus.ACTIVE, "1"), page.aTask(ToDoMVCPage.TaskStatus.COMPLETED, "2"));
 
         page.filterCompleted();

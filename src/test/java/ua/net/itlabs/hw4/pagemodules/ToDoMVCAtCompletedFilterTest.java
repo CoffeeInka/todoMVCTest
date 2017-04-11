@@ -2,27 +2,28 @@ package ua.net.itlabs.hw4.pagemodules;
 
 import org.junit.Test;
 import ua.net.itlabs.hw2.BaseTest;
+import ua.net.itlabs.hw4.pagemodules.pages.ToDoMVC;
 
-import static ua.net.itlabs.hw4.pagemodules.pages.ToDoMVCPage.*;
-import static ua.net.itlabs.hw4.pagemodules.pages.ToDoMVCPage.TaskStatus.ACTIVE;
-import static ua.net.itlabs.hw4.pagemodules.pages.ToDoMVCPage.TaskStatus.COMPLETED;
+import static ua.net.itlabs.hw4.pagemodules.pages.ToDoMVC.*;
+import static ua.net.itlabs.hw4.pagemodules.pages.ToDoMVC.TaskStatus.ACTIVE;
+import static ua.net.itlabs.hw4.pagemodules.pages.ToDoMVC.TaskStatus.COMPLETED;
 
 /**
  * Created by inna on 4/10/17.
  */
-public class AtCompleted extends BaseTest {
+public class ToDoMVCAtCompletedFilterTest extends BaseTest {
     
     @Test
-    public void deleteAtCompleted() {
+    public void delete() {
         givenAtCompleted(COMPLETED, "1", "2");
 
-        delete("1");
+        ToDoMVC.delete("1");
         assertTasks("2");
         assertItemsLeft(0);
     }
 
     @Test
-    public void reactivateAllAtCompleted() {
+    public void reactivateAll() {
         givenAtCompleted(COMPLETED, "1", "2");
 
         toggleAll();
@@ -31,7 +32,7 @@ public class AtCompleted extends BaseTest {
     }
 
     @Test
-    public void deleteByClearTextAtCompleted() {
+    public void deleteByClearText() {
         givenAtCompleted(COMPLETED, "1", "2");
 
         edit("2", "");
@@ -40,7 +41,7 @@ public class AtCompleted extends BaseTest {
     }
 
     @Test
-    public void switchFilterCompletedToActive() {
+    public void switchFilterToActive() {
         givenAtCompleted(aTask(COMPLETED, "1"), aTask(COMPLETED, "2"), aTask(ACTIVE, "3"));
 
         filterActive();

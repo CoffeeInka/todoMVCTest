@@ -1,21 +1,21 @@
-package ua.net.itlabs.hw4.pageobjectes;
+package ua.net.itlabs.hw4.pageobjects;
 
 import org.junit.Test;
 import ua.net.itlabs.hw2.BaseTest;
-import ua.net.itlabs.hw4.pageobjectes.pages.ToDoMVCPage;
+import ua.net.itlabs.hw4.pageobjects.pages.ToDoMVCPage;
 
-import static ua.net.itlabs.hw4.pageobjectes.pages.ToDoMVCPage.TaskStatus.ACTIVE;
-import static ua.net.itlabs.hw4.pageobjectes.pages.ToDoMVCPage.TaskStatus.COMPLETED;
+import static ua.net.itlabs.hw4.pageobjects.pages.ToDoMVCPage.TaskStatus.ACTIVE;
+import static ua.net.itlabs.hw4.pageobjects.pages.ToDoMVCPage.TaskStatus.COMPLETED;
 
 /**
  * Created by inna on 4/10/17.
  */
-public class AtActive extends BaseTest {
+public class ToDoMVCAtActiveFilterTest extends BaseTest {
 
     ToDoMVCPage page = new ToDoMVCPage();
 
     @Test
-    public void completeAtActive() {
+    public void complete() {
         page.givenAtActive(ACTIVE, "1", "2");
 
         page.toggle("1");
@@ -24,7 +24,7 @@ public class AtActive extends BaseTest {
     }
 
     @Test
-    public void clearCompletedAtActive() {
+    public void clearCompleted() {
         page.givenAtActive(page.aTask(COMPLETED, "1"), page.aTask(COMPLETED, "2"), page.aTask(ACTIVE, "3"));
 
         page.clearCompleted();
@@ -33,7 +33,7 @@ public class AtActive extends BaseTest {
     }
 
     @Test
-    public void editAtActive() {
+    public void edit() {
         page.givenAtActive(ACTIVE, "1", "2");
 
         page.edit("2", "2 edited");
@@ -42,7 +42,7 @@ public class AtActive extends BaseTest {
     }
 
     @Test
-    public void deleteAtActive() {
+    public void delete() {
         page.givenAtActive(ACTIVE, "1");
 
         page.delete("1");
@@ -50,7 +50,7 @@ public class AtActive extends BaseTest {
     }
 
     @Test
-    public void cancelEditAtActive() {
+    public void cancelEdit() {
         page.givenAtActive(ACTIVE, "1", "2");
 
         page.cancelEdit("2", "2 edit canceled");
@@ -59,7 +59,7 @@ public class AtActive extends BaseTest {
     }
 
     @Test
-    public void editByClickOutOfTaskAtActive() {
+    public void editByClickOutOfTask() {
         page.givenAtActive(ACTIVE, "1", "2");
 
         page.editByClickOutOfTask("2", "2 edited");
@@ -68,7 +68,7 @@ public class AtActive extends BaseTest {
     }
 
     @Test
-    public void switchFilterActiveToAll() {
+    public void switchFilterToAll() {
         page.givenAtActive(page.aTask(ACTIVE, "1"), page.aTask(COMPLETED, "2"));
 
         page.filterAll();

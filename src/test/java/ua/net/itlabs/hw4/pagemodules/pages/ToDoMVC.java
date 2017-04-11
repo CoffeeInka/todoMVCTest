@@ -1,4 +1,4 @@
-package ua.net.itlabs.hw4.pageobjectes.pages;
+package ua.net.itlabs.hw4.pagemodules.pages;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
@@ -10,115 +10,112 @@ import java.util.Arrays;
 import static com.codeborne.selenide.CollectionCondition.empty;
 import static com.codeborne.selenide.CollectionCondition.exactTexts;
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Condition.exactText;
-import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
-import static com.codeborne.selenide.Selenide.refresh;
 import static com.codeborne.selenide.WebDriverRunner.url;
 
 /**
  * Created by inna on 4/5/17.
  */
-public class ToDoMVCPage {
+public class ToDoMVC {
 
-    public ElementsCollection tasks = $$("#todo-list li");
+    public static ElementsCollection tasks = $$("#todo-list li");
 
-    public ElementsCollection filters = $$("#filters li");
+    public static ElementsCollection filters = $$("#filters li");
 
     @Step
-    public void add(String... tasksTexts) {
+    public static void add(String... tasksTexts) {
         for (String text : tasksTexts) {
             $("#new-todo").shouldBe(enabled).setValue(text).pressEnter();
         }
     }
 
     @Step
-    public void delete(String taskText) {
+    public static void delete(String taskText) {
         tasks.find(exactText(taskText)).hover().$(".destroy").click();
     }
 
     @Step
-    public void toggle(String taskText) {
+    public static void toggle(String taskText) {
         tasks.findBy(exactText(taskText)).find(".toggle").click();
     }
 
     @Step
-    public void toggleAll() {
+    public static void toggleAll() {
         $("#toggle-all").click();
     }
 
     @Step
-    public void assertItemsLeft(int count) {
+    public static void assertItemsLeft(int count) {
         $("#todo-count strong").shouldHave(text(Integer.toString(count)));
     }
 
     @Step
-    public void clearCompleted() {
+    public static void clearCompleted() {
         $("#clear-completed").click();
     }
 
     @Step
-    public SelenideElement startEdit(String oldTaskText, String newTaskText) {
+    public static SelenideElement startEdit(String oldTaskText, String newTaskText) {
         tasks.findBy(exactText(oldTaskText)).doubleClick();
         return tasks.findBy(cssClass("editing")).find(".edit").setValue(newTaskText);
     }
 
     @Step
-    public void edit(String oldTaskText, String newTaskText) {
+    public static void edit(String oldTaskText, String newTaskText) {
         startEdit(oldTaskText, newTaskText).pressEnter();
     }
 
     @Step
-    public void editByTab(String oldTaskText, String newTaskText) {
+    public static void editByTab(String oldTaskText, String newTaskText) {
         startEdit(oldTaskText, newTaskText).pressTab();
     }
 
     @Step
-    public void editByClickOutOfTask(String oldTaskText, String newTaskText) {
+    public static void editByClickOutOfTask(String oldTaskText, String newTaskText) {
         startEdit(oldTaskText, newTaskText);
         $("#header h1").click();
     }
 
     @Step
-    public void cancelEdit(String oldTaskText, String newTaskText) {
+    public static void cancelEdit(String oldTaskText, String newTaskText) {
         startEdit(oldTaskText, newTaskText).pressEscape();
     }
 
     @Step
-    public void filterCompleted() {
+    public static void filterCompleted() {
         filters.findBy(exactText("Completed")).click();
     }
 
     @Step
-    public void filterActive() {
+    public static void filterActive() {
         filters.findBy(exactText("Active")).click();
     }
 
     @Step
-    public void filterAll() {
+    public static void filterAll() {
         filters.findBy(exactText("All")).click();
     }
 
     @Step
-    public void assertNoTasks() {
+    public static void assertNoTasks() {
         tasks.filterBy(visible).shouldBe(empty);
     }
 
     @Step
-    public void assertTasks(String... tasksTexts) {
+    public static void assertTasks(String... tasksTexts) {
         tasks.filterBy(visible).shouldHave(exactTexts(tasksTexts));
     }
 
-    public void ensureUrl() {
+    public static void ensureUrl() {
         if (!url().equals("https://todomvc4tasj.herokuapp.com/")) {
             open("https://todomvc4tasj.herokuapp.com/");
         }
     }
 
-    public class Task {
+    public static class Task {
 
-        TaskStatus status;
-        String taskText;
+        public TaskStatus status;
+        public String taskText;
 
         Task(TaskStatus status, String taskText) {
             this.status = status;
@@ -132,7 +129,7 @@ public class ToDoMVCPage {
     }
 
     @Step
-    public Task aTask(TaskStatus status, String taskText) {
+    public static Task aTask(TaskStatus status, String taskText) {
         Task aTask = new Task(status, taskText);
         return aTask;
     }
@@ -154,7 +151,7 @@ public class ToDoMVCPage {
     }
 
     @Step
-    public Task[] tasksWithStatus(TaskStatus status, String... taskTexts) {
+    public static Task[] tasksWithStatus(TaskStatus status, String... taskTexts) {
 //        ArrayList<Task> tasks = new ArrayList<Task>();
 //        for (String taskText : taskTexts) {
 //            tasks.add(aTask(status, taskText));}
@@ -166,7 +163,7 @@ public class ToDoMVCPage {
     }
 
     @Step
-    public void given(Task... tasks) {
+    public static void given(Task... tasks) {
         ensureUrl();
         String jsCommand = "localStorage.setItem(\"todos-troopjs\", '[" + StringUtils.join(tasks, ",") + "]')";
         System.out.println(jsCommand);
@@ -175,30 +172,30 @@ public class ToDoMVCPage {
     }
 
     @Step
-    public void given(TaskStatus status, String... taskTexts) {
+    public static void given(TaskStatus status, String... taskTexts) {
         given(tasksWithStatus(status, taskTexts));
     }
 
     @Step
-    public void givenAtActive(Task... tasks) {
+    public static void givenAtActive(Task... tasks) {
         given(tasks);
         filterActive();
     }
 
     @Step
-    public void givenAtActive(TaskStatus status, String... taskTexts) {
+    public static void givenAtActive(TaskStatus status, String... taskTexts) {
         given(tasksWithStatus(status, taskTexts));
         filterActive();
     }
 
     @Step
-    public void givenAtCompleted(Task... tasks) {
+    public static void givenAtCompleted(Task... tasks) {
         given(tasks);
         filterCompleted();
     }
 
     @Step
-    public void givenAtCompleted(TaskStatus status, String... taskTexts) {
+    public static void givenAtCompleted(TaskStatus status, String... taskTexts) {
         given(tasksWithStatus(status, taskTexts));
         filterCompleted();
     }
