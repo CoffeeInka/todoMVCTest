@@ -7,6 +7,7 @@ import org.junit.Test;
 import ru.yandex.qatools.allure.annotations.Step;
 import ua.net.itlabs.hw2.BaseTest;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 import static com.codeborne.selenide.CollectionCondition.empty;
