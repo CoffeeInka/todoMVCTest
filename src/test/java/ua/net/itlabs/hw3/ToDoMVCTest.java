@@ -61,11 +61,11 @@ public class ToDoMVCTest extends BaseTest {
     }
 
     @Test
-    public void completeAllAtActive() {
-        givenAtActive(ACTIVE, "1", "2");
+    public void completeAllAtAll() {
+        given(aTask(ACTIVE, "1"), aTask(COMPLETED, "2"));
 
         toggleAll();
-        assertNoTasks();
+        assertTasks("1", "2");
         assertItemsLeft(0);
     }
 
@@ -79,19 +79,20 @@ public class ToDoMVCTest extends BaseTest {
 
     @Test
     public void clearCompletedAtActive() {
-        givenAtActive(COMPLETED, "1");
+        givenAtActive(aTask(COMPLETED, "1"), aTask(COMPLETED, "2"), aTask(ACTIVE, "3"));
 
         clearCompleted();
-        assertNoTasks();
+        assertTasks("3");
+        assertItemsLeft(1);
     }
 
     @Test
     public void reactivateAtAll() {
-        given(COMPLETED, "1");
+        given(aTask(ACTIVE, "1"), aTask(COMPLETED, "2"));
 
-        toggle("1");
-        assertTasks("1");
-        assertItemsLeft(1);
+        toggle("2");
+        assertTasks("1", "2");
+        assertItemsLeft(2);
     }
 
     @Test
@@ -131,10 +132,11 @@ public class ToDoMVCTest extends BaseTest {
 
     @Test
     public void deleteAtCompleted() {
-        givenAtCompleted(COMPLETED, "1");
+        givenAtCompleted(COMPLETED, "1", "2");
 
         delete("1");
-        assertNoTasks();
+        assertTasks("2");
+        assertItemsLeft(0);
     }
 
     @Test
@@ -157,11 +159,11 @@ public class ToDoMVCTest extends BaseTest {
 
     @Test
     public void cancelEditAtAll() {
-        given(COMPLETED, "1");
+        given(aTask(ACTIVE, "1"), aTask(COMPLETED, "2"));
 
-        cancelEdit("1", "1 edit canceled");
-        assertTasks("1");
-        assertItemsLeft(0);
+        cancelEdit("2", "2 edit canceled");
+        assertTasks("1", "2");
+        assertItemsLeft(1);
     }
 
     @Test
@@ -175,19 +177,20 @@ public class ToDoMVCTest extends BaseTest {
 
     @Test
     public void editByClickOutOfTaskAtActive() {
-        givenAtActive(ACTIVE, "1");
+        givenAtActive(ACTIVE, "1", "2");
 
-        editByClickOutOfTask("1", "1 edited");
-        assertTasks("1 edited");
-        assertItemsLeft(1);
+        editByClickOutOfTask("2", "2 edited");
+        assertTasks("1", "2 edited");
+        assertItemsLeft(2);
     }
 
     @Test
     public void deleteByClearTextAtCompleted() {
-        givenAtCompleted(COMPLETED, "1");
+        givenAtCompleted(COMPLETED, "1", "2");
 
-        edit("1", "");
-        assertNoTasks();
+        edit("2", "");
+        assertTasks("1");
+        assertItemsLeft(0);
     }
 
     @Test
@@ -201,25 +204,26 @@ public class ToDoMVCTest extends BaseTest {
 
     @Test
     public void switchFilterCompletedToActive() {
-        givenAtCompleted(aTask(COMPLETED, "a"), aTask(ACTIVE, "b"));
+        givenAtCompleted(aTask(COMPLETED, "1"), aTask(COMPLETED, "2"), aTask(ACTIVE, "3"));
 
         filterActive();
-        assertTasks("b");
+        assertTasks("3");
         assertItemsLeft(1);
     }
 
     @Test
     public void switchFilterAllToCompleted() {
-        given(aTask(ACTIVE, "a"), aTask(COMPLETED, "b"));
+        given(aTask(ACTIVE, "1"), aTask(COMPLETED, "2"));
 
         filterCompleted();
-        assertTasks("b");
+        assertTasks("2");
         assertItemsLeft(1);
     }
 
     public void ensureUrl() {
-        if (!url().equals("https://todomvc4tasj.herokuapp.com/")) ;
-        open("https://todomvc4tasj.herokuapp.com/");
+        if (!url().equals("https://todomvc4tasj.herokuapp.com/")) {
+            open("https://todomvc4tasj.herokuapp.com/");
+        }
     }
 
     public class Task {
@@ -279,7 +283,6 @@ public class ToDoMVCTest extends BaseTest {
     }
 
     public void given(TaskStatus status, String... taskTexts) {
-        ensureUrl();
         given(tasksWithStatus(status, taskTexts));
     }
 
