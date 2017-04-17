@@ -4,12 +4,12 @@ package ua.net.itlabs.hw4.pagemodules;
 import org.junit.Test;
 import ua.net.itlabs.hw2.BaseTest;
 
-import static ua.net.itlabs.hw4.pagemodules.pages.ToDoMVC.*;
+import static ua.net.itlabs.hw4.pagemodules.pages.ToDoMVCPage.*;
 
-public class ToDoMVCLifeCycle extends BaseTest {
+public class ToDoMVCLifeCycleTest extends BaseTest {
     
     @Test
-    public void tasksLifeCycle() {
+    public void testTasksLifeCycle() {
         given();
 
         add("1");
