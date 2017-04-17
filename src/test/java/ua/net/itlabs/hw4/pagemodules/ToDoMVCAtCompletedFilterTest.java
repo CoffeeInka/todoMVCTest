@@ -2,11 +2,10 @@ package ua.net.itlabs.hw4.pagemodules;
 
 import org.junit.Test;
 import ua.net.itlabs.hw2.BaseTest;
-import ua.net.itlabs.hw4.pagemodules.pages.ToDoMVCPage;
 
-import static ua.net.itlabs.hw4.pagemodules.pages.ToDoMVCPage.*;
-import static ua.net.itlabs.hw4.pagemodules.pages.ToDoMVCPage.TaskStatus.ACTIVE;
-import static ua.net.itlabs.hw4.pagemodules.pages.ToDoMVCPage.TaskStatus.COMPLETED;
+import static ua.net.itlabs.hw4.pagemodules.pages.ToDoMVC.*;
+import static ua.net.itlabs.hw4.pagemodules.pages.ToDoMVC.TaskStatus.ACTIVE;
+import static ua.net.itlabs.hw4.pagemodules.pages.ToDoMVC.TaskStatus.COMPLETED;
 
 /**
  * Created by inna on 4/10/17.
@@ -41,7 +40,7 @@ public class ToDoMVCAtCompletedFilterTest extends BaseTest {
     }
 
     @Test
-    public void switchFilterToActive() {
+    public void testSwitchFilterToActive() {
         givenAtCompleted(aTask(COMPLETED, "1"), aTask(COMPLETED, "2"), aTask(ACTIVE, "3"));
 
         filterActive();

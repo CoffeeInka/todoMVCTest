@@ -16,7 +16,7 @@ import static com.codeborne.selenide.WebDriverRunner.url;
 /**
  * Created by inna on 4/5/17.
  */
-public class ToDoMVCPage {
+public class ToDoMVC {
 
     public static ElementsCollection tasks = $$("#todo-list li");
 
