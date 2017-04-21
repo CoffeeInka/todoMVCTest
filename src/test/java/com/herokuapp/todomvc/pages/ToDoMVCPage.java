@@ -22,6 +22,7 @@ public class ToDoMVCPage {
 
     public ElementsCollection filters = $$("#filters li");
 
+
     @Step
     public void add(String... tasksTexts) {
         for (String text : tasksTexts) {

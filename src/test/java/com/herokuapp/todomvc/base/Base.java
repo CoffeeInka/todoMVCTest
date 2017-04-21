@@ -1,4 +1,4 @@
-package com.herokuapp.todomvc;
+package com.herokuapp.todomvc.base;
 
 
 import com.codeborne.selenide.Screenshots;
@@ -9,7 +9,7 @@ import ru.yandex.qatools.allure.annotations.Attachment;
 import java.io.File;
 import java.io.IOException;
 
-public class BaseTest {
+public class Base {
 
    /*@BeforeClass
    public static void setup(){

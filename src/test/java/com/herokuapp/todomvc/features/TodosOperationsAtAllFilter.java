@@ -1,7 +1,12 @@
-package com.herokuapp.todomvc;
+package com.herokuapp.todomvc.features;
 
+import com.herokuapp.todomvc.base.Base;
+import com.herokuapp.todomvc.categories.All;
+import com.herokuapp.todomvc.categories.Buggy;
+import com.herokuapp.todomvc.categories.FullAcceptance;
 import org.junit.Test;
 import com.herokuapp.todomvc.pages.ToDoMVCPage;
+import org.junit.experimental.categories.Category;
 
 import static com.herokuapp.todomvc.pages.ToDoMVCPage.TaskStatus.ACTIVE;
 import static com.herokuapp.todomvc.pages.ToDoMVCPage.TaskStatus.COMPLETED;
@@ -10,11 +15,13 @@ import static com.herokuapp.todomvc.pages.ToDoMVCPage.TaskStatus.COMPLETED;
  * Created by inna on 21/04/2017.
  */
 
-public class TodosOperationsAtAllFilterTest extends BaseTest {
+@Category(All.class)
+public class TodosOperationsAtAllFilter extends Base {
 
     ToDoMVCPage page = new ToDoMVCPage();
 
     @Test
+    @Category(FullAcceptance.class)
     public void completeAll() {
         page.given(page.aTask(ACTIVE, "1"), page.aTask(COMPLETED, "2"));
 
@@ -24,6 +31,7 @@ public class TodosOperationsAtAllFilterTest extends BaseTest {
     }
 
     @Test
+    @Category(FullAcceptance.class)
     public void clearCompleted() {
         page.given(COMPLETED, "1");
 
@@ -32,6 +40,7 @@ public class TodosOperationsAtAllFilterTest extends BaseTest {
     }
 
     @Test
+    @Category(FullAcceptance.class)
     public void reactivate() {
         page.given(page.aTask(ACTIVE, "1"), page.aTask(COMPLETED, "2"));
 
@@ -41,6 +50,7 @@ public class TodosOperationsAtAllFilterTest extends BaseTest {
     }
 
     @Test
+    @Category(FullAcceptance.class)
     public void edit() {
         page.given(ACTIVE, "1");
 
@@ -50,6 +60,7 @@ public class TodosOperationsAtAllFilterTest extends BaseTest {
     }
 
     @Test
+    @Category(FullAcceptance.class)
     public void delete() {
         page.given(page.aTask(COMPLETED, "1"), page.aTask(ACTIVE, "2"));
 
@@ -60,6 +71,7 @@ public class TodosOperationsAtAllFilterTest extends BaseTest {
 
     //buggy test
     @Test
+    @Category(Buggy.class)
     public void cancelEdit() {
         page.given(page.aTask(ACTIVE, "1"), page.aTask(COMPLETED, "2"));
 
@@ -70,6 +82,7 @@ public class TodosOperationsAtAllFilterTest extends BaseTest {
     }
 
     @Test
+    @Category(FullAcceptance.class)
     public void editByTab() {
         page.given(COMPLETED, "1");
 
@@ -78,13 +91,4 @@ public class TodosOperationsAtAllFilterTest extends BaseTest {
         page.assertItemsLeft(0);
     }
 
-
-    @Test
-    public void switchFilterToCompleted() {
-        page.given(page.aTask(ACTIVE, "1"), page.aTask(COMPLETED, "2"));
-
-        page.filterCompleted();
-        page.assertTasks("2");
-        page.assertItemsLeft(1);
-    }
 }
