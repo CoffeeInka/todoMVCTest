@@ -14,7 +14,7 @@ import static ua.net.itlabs.hw4.pagemodules.pages.ToDoMVC.TaskStatus.COMPLETED;
 public class ToDoMVCAtActiveFilterTest extends BaseTest {
 
     @Test
-    public void complete() {
+    public void testComplete() {
         givenAtActive(ACTIVE, "1", "2");
 
         toggle("1");
@@ -23,25 +23,25 @@ public class ToDoMVCAtActiveFilterTest extends BaseTest {
     }
 
     @Test
-    public void clearCompleted() {
+    public void testClearCompleted() {
         givenAtActive(aTask(COMPLETED, "1"), aTask(COMPLETED, "2"), aTask(ACTIVE, "3"));
 
-        ToDoMVC.clearCompleted();
+        clearCompleted();
         assertTasks("3");
         assertItemsLeft(1);
     }
 
     @Test
-    public void edit() {
+    public void testEdit() {
         givenAtActive(ACTIVE, "1", "2");
 
-        ToDoMVC.edit("2", "2 edited");
+        edit("2", "2 edited");
         assertTasks("1", "2 edited");
         assertItemsLeft(2);
     }
 
     @Test
-    public void delete() {
+    public void testDelete() {
         givenAtActive(ACTIVE, "1");
 
         ToDoMVC.delete("1");
@@ -49,25 +49,25 @@ public class ToDoMVCAtActiveFilterTest extends BaseTest {
     }
 
     @Test
-    public void cancelEdit() {
+    public void testCancelEdit() {
         givenAtActive(ACTIVE, "1", "2");
 
-        ToDoMVC.cancelEdit("2", "2 edit canceled");
+        cancelEdit("2", "2 edit canceled");
         assertTasks("1", "2");
         assertItemsLeft(2);
     }
 
     @Test
-    public void editByClickOutOfTask() {
+    public void testEditByClickOutOfTask() {
         givenAtActive(ACTIVE, "1", "2");
 
-        ToDoMVC.editByClickOutOfTask("2", "2 edited");
+        editByClickOutOfTask("2", "2 edited");
         assertTasks("1", "2 edited");
         assertItemsLeft(2);
     }
 
     @Test
-    public void switchFilterToAll() {
+    public void testSwitchFilterToAll() {
         givenAtActive(aTask(ACTIVE, "1"), aTask(COMPLETED, "2"));
 
         filterAll();

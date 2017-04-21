@@ -5,7 +5,7 @@ import org.junit.Test;
 import ua.net.itlabs.hw2.BaseTest;
 import ua.net.itlabs.hw4.pageobjects.pages.ToDoMVCPage;
 
-public class ToDoMVCLifeCycle extends BaseTest {
+public class ToDoMVCLifeCycleTest extends BaseTest {
 
     ToDoMVCPage page = new ToDoMVCPage();
 

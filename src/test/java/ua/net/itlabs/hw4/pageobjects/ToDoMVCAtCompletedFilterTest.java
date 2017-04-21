@@ -4,6 +4,8 @@ import org.junit.Test;
 import ua.net.itlabs.hw2.BaseTest;
 import ua.net.itlabs.hw4.pageobjects.pages.ToDoMVCPage;
 
+import static ua.net.itlabs.hw4.pageobjects.pages.ToDoMVCPage.TaskStatus.COMPLETED;
+
 /**
  * Created by inna on 4/10/17.
  */
@@ -13,7 +15,7 @@ public class ToDoMVCAtCompletedFilterTest extends BaseTest {
 
     @Test
     public void delete() {
-        page.givenAtCompleted(ToDoMVCPage.TaskStatus.COMPLETED, "1", "2");
+        page.givenAtCompleted(COMPLETED, "1", "2");
 
         page.delete("1");
         page.assertTasks("2");
@@ -22,7 +24,7 @@ public class ToDoMVCAtCompletedFilterTest extends BaseTest {
 
     @Test
     public void reactivateAll() {
-        page.givenAtCompleted(ToDoMVCPage.TaskStatus.COMPLETED, "1", "2");
+        page.givenAtCompleted(COMPLETED, "1", "2");
 
         page.toggleAll();
         page.assertNoTasks();
@@ -31,7 +33,7 @@ public class ToDoMVCAtCompletedFilterTest extends BaseTest {
 
     @Test
     public void deleteByClearText() {
-        page.givenAtCompleted(ToDoMVCPage.TaskStatus.COMPLETED, "1", "2");
+        page.givenAtCompleted(COMPLETED, "1", "2");
 
         page.edit("2", "");
         page.assertTasks("1");
@@ -40,7 +42,7 @@ public class ToDoMVCAtCompletedFilterTest extends BaseTest {
 
     @Test
     public void switchFilterToActive() {
-        page.givenAtCompleted(page.aTask(ToDoMVCPage.TaskStatus.COMPLETED, "1"), page.aTask(ToDoMVCPage.TaskStatus.COMPLETED, "2"), page.aTask(ToDoMVCPage.TaskStatus.ACTIVE, "3"));
+        page.givenAtCompleted(page.aTask(COMPLETED, "1"), page.aTask(COMPLETED, "2"), page.aTask(ToDoMVCPage.TaskStatus.ACTIVE, "3"));
 
         page.filterActive();
         page.assertTasks("3");
