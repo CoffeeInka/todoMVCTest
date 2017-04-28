@@ -1,14 +1,12 @@
-package com.herokuapp.todomvc;
+package ua.net.itlabs.hw5;
 
-import com.herokuapp.todomvc.categories.Buggy;
-import com.herokuapp.todomvc.features.TodosE2ETest;
-import com.herokuapp.todomvc.features.TodosOperationsAtAllFilter;
 import org.junit.experimental.categories.Categories;
 import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import ua.net.itlabs.hw5.categories.Buggy;
+import ua.net.itlabs.hw5.features.TodosE2ETest;
+import ua.net.itlabs.hw5.features.TodosOperationsAtAllFilter;
 
 import static org.junit.experimental.categories.Categories.*;
-import static org.junit.runners.Suite.*;
 
 /**
  * Created by inna on 4/21/17.

@@ -1,4 +1,4 @@
-package com.herokuapp.todomvc.base;
+package ua.net.itlabs.hw5.base;
 
 
 import com.codeborne.selenide.Screenshots;

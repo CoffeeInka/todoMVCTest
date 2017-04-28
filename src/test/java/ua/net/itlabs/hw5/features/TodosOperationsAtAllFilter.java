@@ -1,13 +1,13 @@
-package com.herokuapp.todomvc.features;
+package ua.net.itlabs.hw5.features;
 
-import com.herokuapp.todomvc.base.BaseTest;
-import com.herokuapp.todomvc.categories.Buggy;
 import org.junit.Test;
-import com.herokuapp.todomvc.pages.ToDoMVCPage;
+import ua.net.itlabs.hw5.base.BaseTest;
+import ua.net.itlabs.hw5.categories.Buggy;
+import ua.net.itlabs.hw5.pages.ToDoMVCPage;
 import org.junit.experimental.categories.Category;
 
-import static com.herokuapp.todomvc.pages.ToDoMVCPage.TaskStatus.ACTIVE;
-import static com.herokuapp.todomvc.pages.ToDoMVCPage.TaskStatus.COMPLETED;
+import static ua.net.itlabs.hw5.pages.ToDoMVCPage.TaskStatus.ACTIVE;
+import static ua.net.itlabs.hw5.pages.ToDoMVCPage.TaskStatus.COMPLETED;
 
 /**
  * Created by inna on 21/04/2017.
