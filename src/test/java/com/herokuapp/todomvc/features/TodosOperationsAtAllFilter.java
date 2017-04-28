@@ -1,6 +1,6 @@
 package com.herokuapp.todomvc.features;
 
-import com.herokuapp.todomvc.base.Base;
+import com.herokuapp.todomvc.base.BaseTest;
 import com.herokuapp.todomvc.categories.All;
 import com.herokuapp.todomvc.categories.Buggy;
 import com.herokuapp.todomvc.categories.FullAcceptance;
@@ -16,7 +16,7 @@ import static com.herokuapp.todomvc.pages.ToDoMVCPage.TaskStatus.COMPLETED;
  */
 
 @Category(All.class)
-public class TodosOperationsAtAllFilter extends Base {
+public class TodosOperationsAtAllFilter extends BaseTest {
 
     ToDoMVCPage page = new ToDoMVCPage();
 

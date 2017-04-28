@@ -1,6 +1,9 @@
 package com.herokuapp.todomvc.features;
 
-import com.herokuapp.todomvc.BaseTest;
+import com.herokuapp.todomvc.base.BaseTest;
+import com.herokuapp.todomvc.categories.All;
+import com.herokuapp.todomvc.categories.FullAcceptance;
+import com.herokuapp.todomvc.categories.Smoke;
 import com.herokuapp.todomvc.pages.ToDoMVCPage;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -13,7 +16,7 @@ import static com.herokuapp.todomvc.pages.ToDoMVCPage.TaskStatus.COMPLETED;
  */
 
 @Category({FullAcceptance.class, All.class})
-public class TodosE2ETest extends BaseTest {
+public class TodosE2E extends BaseTest {
 
         ToDoMVCPage page = new ToDoMVCPage();
 
@@ -47,6 +50,7 @@ public class TodosE2ETest extends BaseTest {
 
             page.filterAll();
             page.assertTasks("1");
+
 
         }
 
