@@ -1,6 +1,7 @@
 package com.herokuapp.todomvc.features;
 
-import com.herokuapp.todomvc.BaseTest;
+import com.herokuapp.todomvc.base.BaseTest;
+import com.herokuapp.todomvc.categories.Smoke;
 import com.herokuapp.todomvc.pages.ToDoMVCPage;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -12,13 +13,12 @@ import static com.herokuapp.todomvc.pages.ToDoMVCPage.TaskStatus.COMPLETED;
  * Created by inna on 21/04/2017.
  */
 
-@Category({FullAcceptance.class, All.class})
+@Category(Smoke.class)
 public class TodosE2ETest extends BaseTest {
 
         ToDoMVCPage page = new ToDoMVCPage();
 
         @Test
-        @Category(Smoke.class)
         public void tasksLifeCycle() {
             page.given();
 
