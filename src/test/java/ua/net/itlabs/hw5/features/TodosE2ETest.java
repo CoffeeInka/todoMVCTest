@@ -1,27 +1,24 @@
-package com.herokuapp.todomvc.features;
+package ua.net.itlabs.hw5.features;
 
-import com.herokuapp.todomvc.base.BaseTest;
-import com.herokuapp.todomvc.categories.All;
-import com.herokuapp.todomvc.categories.FullAcceptance;
-import com.herokuapp.todomvc.categories.Smoke;
-import com.herokuapp.todomvc.pages.ToDoMVCPage;
+import ua.net.itlabs.hw5.base.BaseTest;
+import ua.net.itlabs.hw5.categories.Smoke;
+import ua.net.itlabs.hw5.pages.ToDoMVCPage;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-import static com.herokuapp.todomvc.pages.ToDoMVCPage.TaskStatus.ACTIVE;
-import static com.herokuapp.todomvc.pages.ToDoMVCPage.TaskStatus.COMPLETED;
+import static ua.net.itlabs.hw5.pages.ToDoMVCPage.TaskStatus.ACTIVE;
+import static ua.net.itlabs.hw5.pages.ToDoMVCPage.TaskStatus.COMPLETED;
 
 /**
  * Created by inna on 21/04/2017.
  */
 
-@Category({FullAcceptance.class, All.class})
-public class TodosE2E extends BaseTest {
+@Category(Smoke.class)
+public class TodosE2ETest extends BaseTest {
 
         ToDoMVCPage page = new ToDoMVCPage();
 
         @Test
-        @Category(Smoke.class)
         public void tasksLifeCycle() {
             page.given();
 
@@ -50,7 +47,6 @@ public class TodosE2E extends BaseTest {
 
             page.filterAll();
             page.assertTasks("1");
-
 
         }
 

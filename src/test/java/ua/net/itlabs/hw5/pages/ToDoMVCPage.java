@@ -1,4 +1,4 @@
-package com.herokuapp.todomvc.pages;
+package ua.net.itlabs.hw5.pages;
 
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
