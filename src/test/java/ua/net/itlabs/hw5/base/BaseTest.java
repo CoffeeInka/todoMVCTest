@@ -13,11 +13,11 @@ import java.io.IOException;
 
 public class BaseTest {
 
-//   @BeforeClass
-//   public static void setup(){
-////       Configuration.browser = System.getProperty("driver.browser");
-//       Configuration.browser = "chrome";
-//    }
+   @BeforeClass
+   public static void setup(){
+       Configuration.browser = System.getProperty("driver.browser");
+       //Configuration.browser = "chrome";
+    }
 
 
     @After

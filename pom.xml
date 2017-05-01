@@ -15,8 +15,6 @@
         <compiler.version>1.8</compiler.version>
         <suite>*Test</suite>
         <driver.browser>firefox</driver.browser>
-        <test.includeCategories></test.includeCategories>
-        <test.excludeCategories></test.excludeCategories>
     </properties>
 
     <dependencies>
@@ -36,14 +34,14 @@
             <version>${allure.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.5</version>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>1.7.5</version>
         </dependency>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.6.4</version>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-simple</artifactId>
+        <version>1.6.4</version>
         </dependency>
     </dependencies>
 
@@ -64,9 +62,9 @@
                 <version>2.20</version>
                 <configuration>
                     <argLine>
-                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
                     </argLine>
-                    <test>ua.net.itlabs.hw6.${suite}</test>
+                    <test>ua.net.itlabs.hw5.${suite}</test>
                     <properties>
                         <property>
                             <name>listener</name>
@@ -77,8 +75,6 @@
                         <webdriver.chrome.driver>/Applications/chromedriver</webdriver.chrome.driver>
                         <driver.browser>${driver.browser}</driver.browser>
                     </systemPropertyVariables>
-                    <groups>${test.includeCategories}</groups>
-                    <excludedGroups>${test.excludeCategories}</excludedGroups>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -95,37 +91,6 @@
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-             <id>smoke</id>
-            <properties>
-                <test.includeCategories>ua.net.itlabs.hw6.categories.Smoke</test.includeCategories>
-                <test.excludeCategories></test.excludeCategories>
-            </properties>
-        </profile>
-        <profile>
-             <id>fullAcceptance</id>
-            <properties>
-                <test.includeCategories></test.includeCategories>
-                <test.excludeCategories>ua.net.itlabs.hw6.categories.Buggy</test.excludeCategories>
-            </properties>
-        </profile>
-        <profile>
-             <id>all</id>
-            <properties>
-                <test.includeCategories></test.includeCategories>
-                <test.excludeCategories></test.excludeCategories>
-            </properties>
-        </profile>
-        <profile>
-             <id>buggy</id>
-            <properties>
-                <test.includeCategories>ua.net.itlabs.hw6.categories.Buggy</test.includeCategories>
-                <test.excludeCategories></test.excludeCategories>
-            </properties>
-        </profile>
-    </profiles>
 
     <reporting>
         <excludeDefaults>true</excludeDefaults>
