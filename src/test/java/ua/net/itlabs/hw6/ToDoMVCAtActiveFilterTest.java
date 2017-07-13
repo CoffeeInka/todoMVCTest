@@ -1,12 +1,12 @@
 package ua.net.itlabs.hw6;
 
 import org.junit.Test;
-import ua.net.itlabs.hw2.BaseTest;
+import ua.net.itlabs.hw6.core.BaseTest;
 import ua.net.itlabs.hw6.pages.ToDoMVC;
 
-import static ua.net.itlabs.hw4.pagemodules.pages.ToDoMVC.TaskStatus.ACTIVE;
-import static ua.net.itlabs.hw4.pagemodules.pages.ToDoMVC.TaskStatus.COMPLETED;
-import static ua.net.itlabs.hw4.pagemodules.pages.ToDoMVC.*;
+import static ua.net.itlabs.hw6.pages.ToDoMVC.*;
+import static ua.net.itlabs.hw6.pages.ToDoMVC.TaskStatus.ACTIVE;
+import static ua.net.itlabs.hw6.pages.ToDoMVC.TaskStatus.COMPLETED;
 
 /**
  * Created by inna on 4/10/17.

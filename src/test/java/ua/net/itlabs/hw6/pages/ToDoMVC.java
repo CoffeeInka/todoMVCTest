@@ -1,8 +1,14 @@
 package ua.net.itlabs.hw6.pages;
 
 import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selectors;
 import com.codeborne.selenide.SelenideElement;
 import org.apache.commons.lang3.StringUtils;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.yandex.qatools.allure.annotations.Step;
 
 import java.util.Arrays;
@@ -11,6 +17,7 @@ import static com.codeborne.selenide.CollectionCondition.empty;
 import static com.codeborne.selenide.CollectionCondition.exactTexts;
 import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
 import static com.codeborne.selenide.WebDriverRunner.url;
 
 /**
@@ -19,8 +26,12 @@ import static com.codeborne.selenide.WebDriverRunner.url;
 public class ToDoMVC {
 
     public static ElementsCollection tasks = $$("#todo-list li");
-
     public static ElementsCollection filters = $$("#filters li");
+    public static String tasksString = "#todo-list li";
+    public static WebDriver driver = getWebDriver();
+    public static WebDriverWait wait = new WebDriverWait(driver, 6);
+
+
 
     @Step
     public static void add(String... tasksTexts) {
@@ -56,7 +67,9 @@ public class ToDoMVC {
 
     @Step
     public static SelenideElement startEdit(String oldTaskText, String newTaskText) {
-        tasks.findBy(exactText(oldTaskText)).doubleClick();
+        Actions actions = new Actions(driver);
+        actions.doubleClick(driver.findElements(By.cssSelector(tasksString).findElement(By.)));
+        //tasks.findBy(exactText(oldTaskText)).doubleClick();
         return tasks.findBy(cssClass("editing")).find(".edit").setValue(newTaskText);
     }
 
@@ -78,7 +91,8 @@ public class ToDoMVC {
 
     @Step
     public static void cancelEdit(String oldTaskText, String newTaskText) {
-        startEdit(oldTaskText, newTaskText).pressEscape();
+        //startEdit(oldTaskText, newTaskText).pressEscape();
+        startEdit(oldTaskText, newTaskText).sendKeys(Keys.ESCAPE);
     }
 
     @Step

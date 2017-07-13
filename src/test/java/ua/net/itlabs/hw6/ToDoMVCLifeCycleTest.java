@@ -2,9 +2,11 @@ package ua.net.itlabs.hw6;
 
 
 import org.junit.Test;
-import ua.net.itlabs.hw2.BaseTest;
+import ua.net.itlabs.hw6.core.BaseTest;
 
-import static ua.net.itlabs.hw4.pagemodules.pages.ToDoMVC.*;
+import static com.sun.tools.internal.xjc.reader.Ring.add;
+import static ua.net.itlabs.hw6.pages.ToDoMVC.*;
+
 
 public class ToDoMVCLifeCycleTest extends BaseTest {
     
