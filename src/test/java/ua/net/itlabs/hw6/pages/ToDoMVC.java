@@ -3,9 +3,7 @@ package ua.net.itlabs.hw6.pages;
 import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.apache.commons.lang3.StringUtils;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import ru.yandex.qatools.allure.annotations.Step;
 
@@ -24,7 +22,7 @@ import static com.codeborne.selenide.WebDriverRunner.url;
 public class ToDoMVC {
 
     public static ElementsCollection tasks = $$("#todo-list li");
-    public static ElementsCollection filters = $$("#filters li");
+    public static ElementsCollection filters = $$("#filters li a");
 
 
     @Step
@@ -36,7 +34,8 @@ public class ToDoMVC {
 
     @Step
     public static void delete(String taskText) {
-        tasks.find(exactText(taskText)).hover().$(".destroy").click();
+        tasks.find(exactText(taskText)).hover();
+        tasks.find(exactText(taskText)).$(".destroy").click();
     }
 
     @Step
@@ -62,8 +61,8 @@ public class ToDoMVC {
     @Step
     public static SelenideElement startEdit(String oldTaskText, String newTaskText) {
         Actions actions = new Actions(getWebDriver());
-        WebElement element = getElements(By.cssSelector("#todo-list li .view>label")).findBy(exactText(oldTaskText));
-        actions.doubleClick(element).perform();
+        tasks.findBy(exactText(oldTaskText)).find(".view>label").shouldBe(visible);
+        actions.doubleClick(tasks.findBy(exactText(oldTaskText)).find(".view>label")).perform();
         return tasks.findBy(cssClass("editing")).find(".edit").setValue(newTaskText);
     }
 
@@ -85,7 +84,6 @@ public class ToDoMVC {
 
     @Step
     public static void cancelEdit(String oldTaskText, String newTaskText) {
-        //startEdit(oldTaskText, newTaskText).pressEscape();
         startEdit(oldTaskText, newTaskText).sendKeys(Keys.ESCAPE);
     }
 
