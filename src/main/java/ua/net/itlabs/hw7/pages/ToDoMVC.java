@@ -10,6 +10,7 @@ import ua.net.itlabs.hw7.core.ConciseAPI;
 import java.util.Arrays;
 
 import static ua.net.itlabs.hw7.core.ConciseAPI.*;
+import static ua.net.itlabs.hw7.core.CustomConditions.listElementWithText;
 
 
 public class ToDoMVC {
@@ -29,9 +30,9 @@ public class ToDoMVC {
 //        tasks.find(exactText(taskText)).$(".destroy").click();
 //    }
 //
-    public static void toggleTaskWithText(String taskText) {
+    public static void toggle(String taskText) {
         //tasks.findBy(exactText(taskText)).find(".toggle").click();
-         $(listElementWithText(taskText), ".toggle").click();
+         $(listElementWithText(tasks, taskText), ".toggle").click();
     }
 //
 //    public static void toggleAll() {

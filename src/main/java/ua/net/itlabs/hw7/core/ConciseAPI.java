@@ -24,12 +24,8 @@ public class ConciseAPI {
         return assertThat(visibilityOfElementLocated(elementLocator));
     }
 
-    public static WebElement $(ExpectedCondition<WebElement> conditionToWaitParentElement, String innerElementCssSelector){
-      return assertThat(conditionToWaitParentElement);
-    }
-
-    public static WebElement listElementWithText(By listLocator, String taskText) {
-        return assertThat(listLocator.findElement(byText(taskText)));
+    public static WebElement $(ExpectedCondition<WebElement> conditionToWaitParentElement, String innerElementCssSelector) {
+        return assertThat(conditionToWaitParentElement).findElement(byCss(innerElementCssSelector));
     }
 
     public static <V> V assertThat(ExpectedCondition<V> condition, long timeout, long polling) {
