@@ -4,6 +4,7 @@ import org.junit.Test;
 import ua.net.itlabs.hw7.testconfigs.BaseTest;
 import ua.net.itlabs.hw7.pages.ToDoMVC;
 
+import static ua.net.itlabs.hw7.pages.ToDoMVC.*;
 import static ua.net.itlabs.hw7.pages.ToDoMVC.TaskStatus.ACTIVE;
 import static ua.net.itlabs.hw7.pages.ToDoMVC.TaskStatus.COMPLETED;
 
@@ -12,32 +13,32 @@ import static ua.net.itlabs.hw7.pages.ToDoMVC.TaskStatus.COMPLETED;
  */
 public class ToDoMVCAtActiveFilterTest extends BaseTest {
 
-//    @Test
-//    public void testComplete() {
-//        givenAtActive(ACTIVE, "1", "2");
-//
-//        toggle("1");
-//        assertTasks("2");
-//        assertItemsLeft(1);
-//    }
-//
-//    @Test
-//    public void testClearCompleted() {
-//        givenAtActive(aTask(COMPLETED, "1"), aTask(COMPLETED, "2"), aTask(ACTIVE, "3"));
-//
-//        clearCompleted();
-//        assertTasks("3");
-//        assertItemsLeft(1);
-//    }
-//
-//    @Test
-//    public void testEdit() {
-//        givenAtActive(ACTIVE, "1", "2");
-//
-//        edit("2", "2 edited");
-//        assertTasks("1", "2 edited");
-//        assertItemsLeft(2);
-//    }
+    @Test
+    public void testComplete() {
+        givenAtActive(ACTIVE, "1", "2");
+
+        toggle("1");
+        assertTasks("2");
+        assertItemsLeft(1);
+    }
+
+    @Test
+    public void testClearCompleted() {
+        givenAtActive(aTask(COMPLETED, "1"), aTask(COMPLETED, "2"), aTask(ACTIVE, "3"));
+
+        clearCompleted();
+        assertTasks("3");
+        assertItemsLeft(1);
+    }
+
+    @Test
+    public void testEdit() {
+        givenAtActive(ACTIVE, "1", "2");
+
+        edit("2", "2 edited");
+        assertTasks("1", "2 edited");
+        assertItemsLeft(2);
+    }
 //
 //    @Test
 //    public void testDelete() {

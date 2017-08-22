@@ -28,6 +28,10 @@ public class ConciseAPI {
         return assertThat(conditionToWaitParentElement).findElement(byCss(innerElementCssSelector));
     }
 
+    public static WebElement $(ExpectedCondition<WebElement> conditionToWaitParentElement, By innerElementLocator) {
+        return assertThat(conditionToWaitParentElement).findElement(innerElementLocator);
+    }
+
     public static <V> V assertThat(ExpectedCondition<V> condition, long timeout, long polling) {
         return new FluentWait<>(getDriver())
                 .withTimeout(timeout, TimeUnit.SECONDS)
