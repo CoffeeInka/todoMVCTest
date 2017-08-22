@@ -2,7 +2,6 @@ package ua.net.itlabs.hw7;
 
 
 import org.junit.Test;
-import ua.net.itlabs.hw7.pages.ToDoMVC;
 import ua.net.itlabs.hw7.testconfigs.BaseTest;
 
 import static ua.net.itlabs.hw7.pages.ToDoMVC.*;

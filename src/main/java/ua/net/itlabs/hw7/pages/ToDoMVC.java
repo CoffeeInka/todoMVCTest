@@ -3,11 +3,8 @@ package ua.net.itlabs.hw7.pages;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import ua.net.itlabs.hw7.core.ConciseAPI;
 
 import java.util.Arrays;
 
@@ -29,76 +26,70 @@ public class ToDoMVC {
             setValue(by("#new-todo"), text);
         }
     }
-//
-//    public static void delete(String taskText) {
-//        tasks.find(exactText(taskText)).hover();
-//        tasks.find(exactText(taskText)).$(".destroy").click();
-//    }
-//
+
+    public static void delete(String taskText) {
+        $(byText(taskText)).click();
+        $(listElementWithText(tasks, taskText), ".destroy").click();
+
+    }
+
     public static void toggle(String taskText) {
-        //tasks.findBy(exactText(taskText)).find(".toggle").click();
-         $(listElementWithText(tasks, taskText), ".toggle").click();
+        $(listElementWithText(tasks, taskText), ".toggle").click();
     }
 
     public static void toggleAll() {
-        //$("#toggle-all").click();
         $(byCss("#toggle-all")).click();
     }
 
     public static void assertItemsLeft(int count) {
-        //$("#todo-count strong").shouldHave(text(Integer.toString(count)));
         textToBe(byCss("#todo-count strong"), Integer.toString(count));
     }
 
     public static void clearCompleted() {
-        //$("#clear-completed").click();
         $(byCss("#clear-completed")).click();
     }
 
-    public static SelenideElement startEdit(String oldTaskText, String newTaskText) {
-        doubleclick(tasks.findBy(exactText(oldTaskText)).find(".view>label"));
-        return tasks.findBy(cssClass("editing")).find(".edit").setValue(newTaskText);
+    public static WebElement startEdit(String oldTaskText) {
+        doubleclick($(listElementWithText(tasks, oldTaskText), ".view>label"));
+        $(byCss(".editing")).findElement(byCss(".edit")).clear();
+        return $(byCss(".editing")).findElement(byCss(".edit"));
     }
 
     public static void edit(String oldTaskText, String newTaskText) {
-        startEdit(oldTaskText, newTaskText).pressEnter();
+        startEdit(oldTaskText).sendKeys(newTaskText + Keys.ENTER);
+
     }
 
-//    public static void editByTab(String oldTaskText, String newTaskText) {
-//        startEdit(oldTaskText, newTaskText).pressTab();
-//    }
-//
-//    public static void editByClickOutOfTask(String oldTaskText, String newTaskText) {
-//        startEdit(oldTaskText, newTaskText);
-//        $("#header h1").click();
-//    }
-//
-//    public static void cancelEdit(String oldTaskText, String newTaskText) {
-//        startEdit(oldTaskText, newTaskText).sendKeys(Keys.ESCAPE);
-//    }
+    public static void editByTab(String oldTaskText, String newTaskText) {
+        startEdit(oldTaskText).sendKeys(newTaskText + Keys.TAB);
+    }
+
+    public static void editByClickOutOfTask(String oldTaskText, String newTaskText) {
+        startEdit(oldTaskText).sendKeys(newTaskText);
+        $(byCss("#header h1")).click();
+    }
+
+    public static void cancelEdit(String oldTaskText, String newTaskText) {
+        startEdit(oldTaskText).sendKeys(newTaskText + Keys.ESCAPE);
+    }
 
     public static void filterCompleted() {
-        //filters.findBy(exactText("Completed")).click();
         $(filters).findElement(byText("Completed")).click();
     }
 
     public static void filterActive() {
-        //filters.findBy(exactText("Active")).click();
         $(filters).findElement(byText("Active")).click();
     }
 
     public static void filterAll() {
-        //filters.findBy(exactText("All")).click();
         $(filters).findElement(byText("All")).click();
     }
 
     public static void assertNoTasks() {
-        //tasks.filterBy(visible).shouldBe(empty);
         invisibilityOfElementLocated(tasks);
     }
 
     public static void assertTasks(String... tasksTexts) {
-        //tasks.filterBy(visible).shouldHave(exactTexts(tasksTexts));
         assertThat(visibleTextsOf(tasks, tasksTexts));
     }
 
@@ -155,7 +146,7 @@ public class ToDoMVC {
         ensureUrl();
         String jsCommand = "localStorage.setItem(\"todos-troopjs\", '[" + StringUtils.join(tasks, ",") + "]')";
         System.out.println(jsCommand);
-        ((JavascriptExecutor)getDriver()).executeScript(jsCommand);
+        ((JavascriptExecutor) getDriver()).executeScript(jsCommand);
         getDriver().navigate().refresh();
     }
 

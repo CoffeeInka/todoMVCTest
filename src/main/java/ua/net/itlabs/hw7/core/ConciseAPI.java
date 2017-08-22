@@ -1,7 +1,9 @@
 package ua.net.itlabs.hw7.core;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 
 import java.util.concurrent.TimeUnit;
@@ -62,5 +64,11 @@ public class ConciseAPI {
 
     public static void open(String url) {
         getDriver().get(url);
+    }
+
+    public static void doubleclick(WebElement element) {
+        ExpectedConditions.visibilityOf(element);
+        Actions actions = new Actions(getDriver());
+        actions.doubleClick(element).perform();
     }
 }

@@ -101,5 +101,3 @@
 
 </project>
 
-<!--To run tests with suites:-->
-        <!--mvn clean test -Dsuite=SmokeSuiteTest -Ddriver.browser=chrome-->
