@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static ua.net.itlabs.hw7.core.ConciseAPI.byCss;
+
 
 public class CustomConditions {
 
@@ -30,6 +32,27 @@ public class CustomConditions {
 
             public String toString() {
                 return String.format("\nElement by text %s is not found by locator %s", text, elementsListLocator);
+            }
+        };
+    }
+
+    public static ExpectedCondition<WebElement> listElementWithCssClass(final By elementsListLocator, final String cssSelector) {
+
+        return new ExpectedCondition<WebElement>() {
+            private List<WebElement> elementsList;
+
+            public WebElement apply(WebDriver driver) {
+                elementsList = driver.findElements(elementsListLocator);
+                for (int i = 0; i < elementsList.size(); i++) {
+                    if (elementsList.get(i).findElement(byCss(cssSelector)).isDisplayed()) {
+                        return elementsList.get(i);
+                    }
+                }
+                return null;
+            }
+
+            public String toString() {
+                return String.format("\nElement by locator %s with CSS Selector %s is not found", elementsListLocator, cssSelector);
             }
         };
     }

@@ -3,32 +3,35 @@ package ua.net.itlabs.hw7.pages;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 import java.util.Arrays;
 
+import static org.openqa.selenium.Keys.ENTER;
+import static org.openqa.selenium.Keys.ESCAPE;
+import static org.openqa.selenium.Keys.TAB;
 import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
 import static org.openqa.selenium.support.ui.ExpectedConditions.textToBe;
 import static ua.net.itlabs.hw7.core.ConciseAPI.*;
+import static ua.net.itlabs.hw7.core.CustomConditions.listElementWithCssClass;
 import static ua.net.itlabs.hw7.core.CustomConditions.listElementWithText;
 import static ua.net.itlabs.hw7.core.CustomConditions.visibleTextsOf;
 
 
 public class ToDoMVC {
 
-    public static By tasks = by("#todo-list li");
-    public static By filters = by("#filters li a");
+    public static By tasks = byCss("#todo-list li");
+    public static By filters = byCss("#filters li a");
 
 
     public static void add(String... tasksTexts) {
         for (String text : tasksTexts) {
-            setValue(by("#new-todo"), text);
+            enterValue(("#new-todo"), text);
         }
     }
 
     public static void delete(String taskText) {
-        $(byText(taskText)).click();
+        hover($(byText(taskText)));
         $(listElementWithText(tasks, taskText), ".destroy").click();
 
     }
@@ -42,35 +45,34 @@ public class ToDoMVC {
     }
 
     public static void assertItemsLeft(int count) {
-        textToBe(byCss("#todo-count strong"), Integer.toString(count));
+        assertThat(textToBe(byCss("#todo-count strong"), Integer.toString(count)));
     }
 
     public static void clearCompleted() {
         $(byCss("#clear-completed")).click();
     }
 
-    public static WebElement startEdit(String oldTaskText) {
-        doubleclick($(listElementWithText(tasks, oldTaskText), ".view>label"));
-        $(byCss(".editing")).findElement(byCss(".edit")).clear();
-        return $(byCss(".editing")).findElement(byCss(".edit"));
+    public static WebElement startEdit(String oldTaskText, String newTaskText) {
+        doubleclick($(listElementWithText(tasks, oldTaskText), "label"));
+        return setValue($(listElementWithCssClass(tasks, ".editing"), ".edit"), newTaskText);
     }
 
     public static void edit(String oldTaskText, String newTaskText) {
-        startEdit(oldTaskText).sendKeys(newTaskText + Keys.ENTER);
+        startEdit(oldTaskText, newTaskText).sendKeys(ENTER);
 
     }
 
     public static void editByTab(String oldTaskText, String newTaskText) {
-        startEdit(oldTaskText).sendKeys(newTaskText + Keys.TAB);
+        startEdit(oldTaskText, newTaskText).sendKeys(TAB);
     }
 
     public static void editByClickOutOfTask(String oldTaskText, String newTaskText) {
-        startEdit(oldTaskText).sendKeys(newTaskText);
+        startEdit(oldTaskText, newTaskText);
         $(byCss("#header h1")).click();
     }
 
     public static void cancelEdit(String oldTaskText, String newTaskText) {
-        startEdit(oldTaskText).sendKeys(newTaskText + Keys.ESCAPE);
+        startEdit(oldTaskText, newTaskText).sendKeys(ESCAPE);
     }
 
     public static void filterCompleted() {

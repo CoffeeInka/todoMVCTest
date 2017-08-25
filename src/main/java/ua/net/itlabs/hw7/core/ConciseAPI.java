@@ -42,12 +42,17 @@ public class ConciseAPI {
     }
 
     public static <V> V assertThat(ExpectedCondition<V> condition) {
-        return assertThat(condition, Configuration.timeout, Configuration.polling);
+        return assertThat(condition, Configuration.timeout, Configuration.pollingInterval);
     }
 
-    public static void setValue(By elementLocator, String text) {
-        $(elementLocator).clear();
-        $(elementLocator).sendKeys(text + Keys.ENTER);
+    public static void setValue(WebElement element, String text) {
+        element.clear();
+        element.sendKeys(text);
+    }
+
+    public static void enterValue(String cssSelector, String text) {
+        $(byCss(cssSelector)).clear();
+        $(byCss(cssSelector)).sendKeys(text + Keys.ENTER);
     }
 
     public static By byText(String text) {
@@ -58,10 +63,6 @@ public class ConciseAPI {
         return By.cssSelector(cssSelector);
     }
 
-    public static By by(String cssSelector) {
-        return byCss(cssSelector);
-    }
-
     public static void open(String url) {
         getDriver().get(url);
     }
@@ -70,5 +71,11 @@ public class ConciseAPI {
         ExpectedConditions.visibilityOf(element);
         Actions actions = new Actions(getDriver());
         actions.doubleClick(element).perform();
+    }
+
+    public static void hover(WebElement element) {
+        ExpectedConditions.visibilityOf(element);
+        Actions actions = new Actions(getDriver());
+        actions.moveToElement(element).perform();
     }
 }
