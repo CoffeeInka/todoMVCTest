@@ -6,6 +6,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 import static org.openqa.selenium.Keys.ENTER;
 import static org.openqa.selenium.Keys.ESCAPE;
@@ -150,6 +151,7 @@ public class ToDoMVC {
         System.out.println(jsCommand);
         executeJavaScript(jsCommand);
         refresh();
+        getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
 
     public static void given(TaskStatus status, String... taskTexts) {
