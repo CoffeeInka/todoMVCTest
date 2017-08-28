@@ -54,7 +54,7 @@ public class ToDoMVC {
 
     public static WebElement startEdit(String oldTaskText, String newTaskText) {
         doubleclick($(listElementWithText(tasks, oldTaskText), "label"));
-        return setValue($(listElementWithCssClass(tasks, ".editing"), ".edit"), newTaskText);
+        return setValue($(listElementWithCssClass(tasks, "editing"), ".edit"), newTaskText);
     }
 
     public static void edit(String oldTaskText, String newTaskText) {
@@ -76,19 +76,19 @@ public class ToDoMVC {
     }
 
     public static void filterCompleted() {
-        $(filters).findElement(byText("Completed")).click();
+        assertThat(listElementWithText(filters, "Completed")).click();
     }
 
     public static void filterActive() {
-        $(filters).findElement(byText("Active")).click();
+        assertThat(listElementWithText(filters, "Active")).click();
     }
 
     public static void filterAll() {
-        $(filters).findElement(byText("All")).click();
+        assertThat(listElementWithText(filters, "All")).click();
     }
 
     public static void assertNoTasks() {
-        invisibilityOfElementLocated(tasks);
+        assertThat(invisibilityOfElementLocated(tasks));
     }
 
     public static void assertTasks(String... tasksTexts) {
@@ -96,7 +96,7 @@ public class ToDoMVC {
     }
 
     public static void ensureUrl() {
-        if (!getDriver().getCurrentUrl().equals("https://todomvc4tasj.herokuapp.com/")) {
+        if (!url().equals("https://todomvc4tasj.herokuapp.com/")) {
             open("https://todomvc4tasj.herokuapp.com/");
         }
     }
@@ -148,8 +148,8 @@ public class ToDoMVC {
         ensureUrl();
         String jsCommand = "localStorage.setItem(\"todos-troopjs\", '[" + StringUtils.join(tasks, ",") + "]')";
         System.out.println(jsCommand);
-        ((JavascriptExecutor) getDriver()).executeScript(jsCommand);
-        getDriver().navigate().refresh();
+        executeJavaScript(jsCommand);
+        refresh();
     }
 
     public static void given(TaskStatus status, String... taskTexts) {

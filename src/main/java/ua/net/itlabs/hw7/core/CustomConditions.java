@@ -1,5 +1,6 @@
 package ua.net.itlabs.hw7.core;
 
+import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static ua.net.itlabs.hw7.core.ConciseAPI.byCss;
 
 
 public class CustomConditions {
@@ -18,12 +18,17 @@ public class CustomConditions {
     public static ExpectedCondition<WebElement> listElementWithText(final By elementsListLocator, final String text) {
 
         return new ExpectedCondition<WebElement>() {
-            private List<WebElement> elementsList;
+            private List<String> actualTexts;
 
             public WebElement apply(WebDriver driver) {
-                elementsList = driver.findElements(elementsListLocator);
-                for (int i = 0; i < elementsList.size(); i++) {
-                    if (elementsList.get(i).getText().contains(text)) {
+                List<WebElement> elementsList = driver.findElements(elementsListLocator);
+                actualTexts = new ArrayList<>();
+                for (WebElement element : elementsList) {
+                    if (element.isDisplayed()){
+                        actualTexts.add(element.getText());}
+                }
+                for (int i = 0; i < actualTexts.size(); i++) {
+                    if (actualTexts.get(i).equals(text)) {
                         return elementsList.get(i);
                     }
                 }
@@ -31,12 +36,12 @@ public class CustomConditions {
             }
 
             public String toString() {
-                return String.format("\nElement by text %s is not found by locator %s", text, elementsListLocator);
+                return String.format("\nFor list with locator %s \nlooking for text: %s \nwhile actual texts are: %s", elementsListLocator, text, actualTexts);
             }
         };
     }
 
-    public static ExpectedCondition<WebElement> listElementWithCssClass(final By elementsListLocator, final String cssSelector) {
+    public static ExpectedCondition<WebElement> listElementWithCssClass(final By elementsListLocator, final String cssClass) {
 
         return new ExpectedCondition<WebElement>() {
             private List<WebElement> elementsList;
@@ -44,7 +49,7 @@ public class CustomConditions {
             public WebElement apply(WebDriver driver) {
                 elementsList = driver.findElements(elementsListLocator);
                 for (int i = 0; i < elementsList.size(); i++) {
-                    if (elementsList.get(i).findElement(byCss(cssSelector)).isDisplayed()) {
+                    if (StringUtils.split(elementsList.get(i).getAttribute("class"))[i].contains(cssClass)) {
                         return elementsList.get(i);
                     }
                 }
@@ -52,7 +57,7 @@ public class CustomConditions {
             }
 
             public String toString() {
-                return String.format("\nElement by locator %s with CSS Selector %s is not found", elementsListLocator, cssSelector);
+                return String.format("\nFor list with locator %s \nlooking for CSS class: %s", elementsListLocator, cssClass);
             }
         };
     }
@@ -67,18 +72,19 @@ public class CustomConditions {
             private List<WebElement> elementsList;
 
             public List<WebElement> apply(WebDriver driver) {
-                actualTexts = new ArrayList<>();
                 elementsList = driver.findElements(elementsListlocator);
+                actualTexts = new ArrayList<>();
                 for (WebElement element : elementsList) {
                     if (element.isDisplayed()) {
                         actualTexts.add(element.getText());
                     }
                 }
+                //if (getActualVisibleTexts(actualTexts, elementsList).size() != expectedTexts.length) {
                 if (actualTexts.size() != expectedTexts.length) {
                     return null;
                 }
                 for (int i = 0; i < actualTexts.size(); i++) {
-                    if (!actualTexts.get(i).contains(expectedTexts[i])) {
+                    if (!actualTexts.get(i).equals(expectedTexts[i])) {
                         return null;
                     }
                 }
@@ -86,7 +92,7 @@ public class CustomConditions {
             }
 
             public String toString() {
-                return String.format("\nFor list with locator %s\nexpected texts are: %s \nwhile actual texts are: %s", elementsListlocator, Arrays.asList(expectedTexts), actualTexts);
+                return String.format("\nFor list with locator %s\nexpected texts are: %s \nwhile actual visible texts are: %s", elementsListlocator, Arrays.asList(expectedTexts), actualTexts);
             }
         };
     }

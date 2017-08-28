@@ -6,6 +6,8 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
@@ -27,7 +29,11 @@ public class ConciseAPI {
     }
 
     public static WebElement $(ExpectedCondition<WebElement> conditionToWaitParentElement, String innerElementCssSelector) {
-        return assertThat(conditionToWaitParentElement).findElement(byCss(innerElementCssSelector));
+            return assertThat(conditionToWaitParentElement).findElement(byCss(innerElementCssSelector));
+    }
+
+    public static WebElement $(ExpectedCondition<WebElement> conditionToWaitParentElement) {
+        return assertThat(conditionToWaitParentElement);
     }
 
     public static WebElement $(ExpectedCondition<WebElement> conditionToWaitParentElement, By innerElementLocator) {
@@ -45,9 +51,10 @@ public class ConciseAPI {
         return assertThat(condition, Configuration.timeout, Configuration.pollingInterval);
     }
 
-    public static void setValue(WebElement element, String text) {
+    public static WebElement setValue(WebElement element, String text) {
         element.clear();
         element.sendKeys(text);
+        return element;
     }
 
     public static void enterValue(String cssSelector, String text) {
@@ -78,4 +85,26 @@ public class ConciseAPI {
         Actions actions = new Actions(getDriver());
         actions.moveToElement(element).perform();
     }
+
+    public static String url(){
+        return getDriver().getCurrentUrl();
+    }
+
+    public static void refresh(){
+        getDriver().navigate();
+    }
+
+    public static void executeJavaScript(String jsCommand){
+        ((JavascriptExecutor) getDriver()).executeScript(jsCommand);
+    }
+
+//    public static List<String> getActualVisibleTexts(List<String>actualTexts, List<WebElement> elementsList){
+//        actualTexts = new ArrayList<>();
+//        for (WebElement element : elementsList) {
+//            if (element.isDisplayed()) {
+//                actualTexts.add(element.getText());
+//            }
+//        }
+//        return actualTexts;
+//    }
 }
