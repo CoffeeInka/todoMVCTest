@@ -147,11 +147,20 @@ public class ToDoMVC {
 
     public static void given(Task... tasks) {
         ensureUrl();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         String jsCommand = "localStorage.setItem(\"todos-troopjs\", '[" + StringUtils.join(tasks, ",") + "]')";
         System.out.println(jsCommand);
         executeJavaScript(jsCommand);
         refresh();
-        getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void given(TaskStatus status, String... taskTexts) {
