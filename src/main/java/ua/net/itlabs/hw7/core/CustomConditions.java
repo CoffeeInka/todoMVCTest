@@ -1,5 +1,6 @@
 package ua.net.itlabs.hw7.core;
 
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -49,7 +50,7 @@ public class CustomConditions {
             public WebElement apply(WebDriver driver) {
                 elementsList = driver.findElements(elementsListLocator);
                 for (int i = 0; i < elementsList.size(); i++) {
-                    if (StringUtils.split(elementsList.get(i).getAttribute("class"))[i].contains(cssClass)) {
+                    if (Arrays.asList(StringUtils.split(elementsList.get(i).getAttribute("class"))).contains(cssClass)) {
                         return elementsList.get(i);
                     }
                 }

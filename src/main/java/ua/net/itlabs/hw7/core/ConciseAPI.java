@@ -91,7 +91,7 @@ public class ConciseAPI {
     }
 
     public static void refresh(){
-        getDriver().navigate();
+        getDriver().navigate().refresh();
     }
 
     public static void executeJavaScript(String jsCommand){

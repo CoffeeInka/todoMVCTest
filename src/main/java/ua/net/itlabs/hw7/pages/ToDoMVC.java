@@ -156,11 +156,6 @@ public class ToDoMVC {
         System.out.println(jsCommand);
         executeJavaScript(jsCommand);
         refresh();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     public static void given(TaskStatus status, String... taskTexts) {
