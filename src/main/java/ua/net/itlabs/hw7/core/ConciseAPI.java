@@ -14,14 +14,21 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
 
 public class ConciseAPI {
 
-    private static WebDriver driver;
+//    private static WebDriver driver;
+    private static ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
 
+//    public static WebDriver getDriver() {
+//        return ConciseAPI.driver;
+//    }
     public static WebDriver getDriver() {
-        return ConciseAPI.driver;
+        return driverThreadLocal.get();
     }
 
+//    public static void setDriver(WebDriver driver) {
+//        ConciseAPI.driver = driver;
+//    }
     public static void setDriver(WebDriver driver) {
-        ConciseAPI.driver = driver;
+        driverThreadLocal.set(driver);
     }
 
     public static WebElement $(By elementLocator) {
