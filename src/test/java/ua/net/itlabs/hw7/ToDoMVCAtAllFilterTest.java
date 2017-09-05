@@ -63,14 +63,14 @@ public class ToDoMVCAtAllFilterTest extends BaseTest {
         assertItemsLeft(1);
     }
 
-    @Test
-    public void testEditByTab() {
-        given(COMPLETED, "1");
-
-        editByTab("1", "1 edited");
-        assertTasks("1 edited");
-        assertItemsLeft(0);
-    }
+//    @Test
+//    public void testEditByTab() {
+//        given(COMPLETED, "1");
+//
+//        editByTab("1", "1 edited");
+//        assertTasks("1 edited");
+//        assertItemsLeft(0);
+//    }
 
 
     @Test

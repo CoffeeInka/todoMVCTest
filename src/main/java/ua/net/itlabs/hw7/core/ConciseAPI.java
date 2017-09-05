@@ -6,27 +6,29 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class ConciseAPI {
 
-    //private static WebDriver driver;
-    private ThreadLocal<WebDriver> threadLocal = new ThreadLocal<>();
+//    private static WebDriver driver;
+    private static ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
 
 //    public static WebDriver getDriver() {
 //        return ConciseAPI.driver;
 //    }
-    public WebDriver getDriver() {
-        return threadLocal.get();
+    public static WebDriver getDriver() {
+        return driverThreadLocal.get();
     }
 
 //    public static void setDriver(WebDriver driver) {
 //        ConciseAPI.driver = driver;
 //    }
-    public void setDriver(WebDriver driver) {
-        threadLocal.set(driver);
+    public static void setDriver(WebDriver driver) {
+        driverThreadLocal.set(driver);
     }
 
     public static WebElement $(By elementLocator) {
