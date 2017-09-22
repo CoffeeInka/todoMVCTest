@@ -54,14 +54,14 @@ public class ToDoMVCAtActiveFilterTest extends BaseTest {
         assertItemsLeft(2);
     }
 
-    @Test
-    public void testEditByClickOutOfTask() {
-        givenAtActive(ACTIVE, "1", "2");
-
-        editByClickOutOfTask("2", "2 edited");
-        assertTasks("1", "2 edited");
-        assertItemsLeft(2);
-    }
+//    @Test
+//    public void testEditByClickOutOfTask() {
+//        givenAtActive(ACTIVE, "1", "2");
+//
+//        editByClickOutOfTask("2", "2 edited");
+//        assertTasks("1", "2 edited");
+//        assertItemsLeft(2);
+//    }
 
     @Test
     public void testSwitchFilterToAll() {
