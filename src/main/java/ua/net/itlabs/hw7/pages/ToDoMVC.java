@@ -3,6 +3,7 @@ package ua.net.itlabs.hw7.pages;
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 import java.util.Arrays;
@@ -27,7 +28,8 @@ public class ToDoMVC {
 
     public static void add(String... tasksTexts) {
         for (String text : tasksTexts) {
-            enterValue(("#new-todo"), text);
+            setValue($(byCss("#new-todo")), text + Keys.ENTER);
+            //enterValue(("#new-todo"), text);
         }
     }
 

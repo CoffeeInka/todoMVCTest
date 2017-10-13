@@ -3,11 +3,8 @@ package ua.net.itlabs.hw7.core;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
@@ -15,19 +12,12 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElem
 
 public class ConciseAPI {
 
-//    private static WebDriver driver;
     private static ThreadLocal<WebDriver> driverThreadLocal = new ThreadLocal<>();
 
-//    public static WebDriver getDriver() {
-//        return ConciseAPI.driver;
-//    }
     public static WebDriver getDriver() {
         return driverThreadLocal.get();
     }
 
-//    public static void setDriver(WebDriver driver) {
-//        ConciseAPI.driver = driver;
-//    }
     public static void setDriver(WebDriver driver) {
         driverThreadLocal.set(driver);
     }
@@ -41,7 +31,7 @@ public class ConciseAPI {
     }
 
     public static WebElement $(ExpectedCondition<WebElement> conditionToWaitParentElement, String innerElementCssSelector) {
-            return assertThat(conditionToWaitParentElement).findElement(byCss(innerElementCssSelector));
+        return assertThat(conditionToWaitParentElement).findElement(byCss(innerElementCssSelector));
     }
 
     public static WebElement $(ExpectedCondition<WebElement> conditionToWaitParentElement) {
@@ -64,14 +54,9 @@ public class ConciseAPI {
     }
 
     public static WebElement setValue(WebElement element, String text) {
-        element.clear();
-        element.sendKeys(text);
+        $(element).clear();
+        $(element).sendKeys(text);
         return element;
-    }
-
-    public static void enterValue(String cssSelector, String text) {
-        $(byCss(cssSelector)).clear();
-        $(byCss(cssSelector)).sendKeys(text + Keys.ENTER);
     }
 
     public static By byText(String text) {
@@ -96,25 +81,16 @@ public class ConciseAPI {
         actions.moveToElement($(element)).perform();
     }
 
-    public static String url(){
+    public static String url() {
         return getDriver().getCurrentUrl();
     }
 
-    public static void refresh(){
+    public static void refresh() {
         getDriver().navigate().refresh();
     }
 
-    public static void executeJavaScript(String jsCommand){
+    public static void executeJavaScript(String jsCommand) {
         ((JavascriptExecutor) getDriver()).executeScript(jsCommand);
     }
 
-//    public static List<String> getActualVisibleTexts(List<String>actualTexts, List<WebElement> elementsList){
-//        actualTexts = new ArrayList<>();
-//        for (WebElement element : elementsList) {
-//            if (element.isDisplayed()) {
-//                actualTexts.add(element.getText());
-//            }
-//        }
-//        return actualTexts;
-//    }
 }
