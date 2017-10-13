@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 
 public class ConciseAPI {
@@ -33,6 +34,10 @@ public class ConciseAPI {
 
     public static WebElement $(By elementLocator) {
         return assertThat(visibilityOfElementLocated(elementLocator));
+    }
+
+    public static WebElement $(WebElement element) {
+        return assertThat(visibilityOf(element));
     }
 
     public static WebElement $(ExpectedCondition<WebElement> conditionToWaitParentElement, String innerElementCssSelector) {
@@ -82,15 +87,13 @@ public class ConciseAPI {
     }
 
     public static void doubleclick(WebElement element) {
-        ExpectedConditions.visibilityOf(element);
         Actions actions = new Actions(getDriver());
-        actions.doubleClick(element).perform();
+        actions.doubleClick($(element)).perform();
     }
 
     public static void hover(WebElement element) {
-        ExpectedConditions.visibilityOf(element);
         Actions actions = new Actions(getDriver());
-        actions.moveToElement(element).perform();
+        actions.moveToElement($(element)).perform();
     }
 
     public static String url(){
