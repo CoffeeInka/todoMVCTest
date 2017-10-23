@@ -2,14 +2,11 @@ package ua.net.itlabs.hw7.pages;
 
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
 
-import static org.openqa.selenium.Keys.ENTER;
 import static org.openqa.selenium.Keys.ESCAPE;
 import static org.openqa.selenium.Keys.TAB;
 import static org.openqa.selenium.support.ui.ExpectedConditions.invisibilityOfElementLocated;
@@ -34,7 +31,8 @@ public class ToDoMVC {
     }
 
     public static void delete(String taskText) {
-        hover($(byText(taskText)));
+//        hover($(byText(taskText)));
+        hover($(listElementWithText(tasks, taskText)));
         $(listElementWithText(tasks, taskText), ".destroy").click();
 
     }
@@ -56,12 +54,12 @@ public class ToDoMVC {
     }
 
     public static WebElement startEdit(String oldTaskText, String newTaskText) {
-        doubleclick($(listElementWithText(tasks, oldTaskText), "label"));
+        doubleClick($(listElementWithText(tasks, oldTaskText), "label"));
         return setValue($(listElementWithCssClass(tasks, "editing"), ".edit"), newTaskText);
     }
 
     public static void edit(String oldTaskText, String newTaskText) {
-        startEdit(oldTaskText, newTaskText).sendKeys(ENTER);
+        startEdit(oldTaskText, newTaskText).sendKeys(Keys.ENTER);
 
     }
 

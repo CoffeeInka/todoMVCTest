@@ -30,16 +30,16 @@ public class ConciseAPI {
         return assertThat(visibilityOf(element));
     }
 
-    public static WebElement $(ExpectedCondition<WebElement> conditionToWaitParentElement, String innerElementCssSelector) {
-        return assertThat(conditionToWaitParentElement).findElement(byCss(innerElementCssSelector));
+    public static WebElement $(ExpectedCondition<WebElement> conditionToWaitElement, String innerElementCssSelector) {
+        return assertThat(conditionToWaitElement).findElement(byCss(innerElementCssSelector));
     }
 
     public static WebElement $(ExpectedCondition<WebElement> conditionToWaitParentElement) {
         return assertThat(conditionToWaitParentElement);
     }
 
-    public static WebElement $(ExpectedCondition<WebElement> conditionToWaitParentElement, By innerElementLocator) {
-        return assertThat(conditionToWaitParentElement).findElement(innerElementLocator);
+    public static WebElement $(ExpectedCondition<WebElement> conditionToWaitElement, By innerElementLocator) {
+        return assertThat(conditionToWaitElement).findElement(innerElementLocator);
     }
 
     public static <V> V assertThat(ExpectedCondition<V> condition, long timeout, long polling) {
@@ -54,8 +54,8 @@ public class ConciseAPI {
     }
 
     public static WebElement setValue(WebElement element, String text) {
-        $(element).clear();
-        $(element).sendKeys(text);
+        element.clear();
+        element.sendKeys(text);
         return element;
     }
 
@@ -71,14 +71,14 @@ public class ConciseAPI {
         getDriver().get(url);
     }
 
-    public static void doubleclick(WebElement element) {
+    public static void doubleClick(WebElement element) {
         Actions actions = new Actions(getDriver());
-        actions.doubleClick($(element)).perform();
+        actions.doubleClick(element).perform();
     }
 
     public static void hover(WebElement element) {
         Actions actions = new Actions(getDriver());
-        actions.moveToElement($(element)).perform();
+        actions.moveToElement(element).perform();
     }
 
     public static String url() {
